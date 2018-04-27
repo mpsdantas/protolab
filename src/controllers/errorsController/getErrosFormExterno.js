@@ -5,7 +5,6 @@ exports.getErrosFormExterno = (req) =>{
     req.assert('quantidade', 'A quantidade não pode ser vazia').notEmpty();
     req.assert('quantidade', 'A quantidade tem que ser maior que zero.').isLength({min:1});
     req.assert('configPcb', 'A configuração da pcb não pode ser vazia.').notEmpty();
-    req.assert('departamento', 'O departamento não pode ser vazio.').notEmpty();
     const erros = req.validationErrors();
     return erros;
 };

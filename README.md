@@ -1,2 +1,1 @@
-# protolab
-Repositório com o sistema de gerenciamento de processos do Protolab.
+## Sistema Gerenciador de Processos do Protolab

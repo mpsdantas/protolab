@@ -441,13 +441,14 @@
                 formData.append('emailSolicitante', emailSolicitante);
                 formData.append('nomeProjeto', nomeProjeto);
                 formData.append('profResponsavel', profResponsavel);
-                formData.append('emailProf', emailProf);
+                formData.append('emailProfResponsavel', emailProf);
                 formData.append('tipoServico', tipoServico);
                 formData.append('quantidade', quantidade);
                 formData.append('configPcb', configPcb);
                 formData.append('arquivo', arquivo);
+                formData.append('departamento', departamento);
                 // POPULANDO FORM //
-
+                
                 $.ajax({
                     type: "POST",
                     enctype: 'multipart/form-data',

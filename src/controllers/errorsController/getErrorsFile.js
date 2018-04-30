@@ -10,3 +10,6 @@ exports.getErrorsFile = (req) =>{
     }
     return {statusErroFile:false,msg:`Envio de arquivo autorizado.`};
 };
+exports.getExt = (file) => {
+    return path.extname(sampleFile.name);
+}

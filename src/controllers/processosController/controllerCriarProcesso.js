@@ -1,11 +1,16 @@
 const mongoose = require('mongoose');
 const Processo = mongoose.model('Processo');
 const errorsController = require('../errorsController');
-const gerateCode = require('../methods/gerateCode');
+const methods = require('../methods');
 
 exports.criarProcesso = (req, res) => {
+    
+    // Declaração de variaveis.
+    
     let code = "";
-
+    
+    /* Controle de erros */
+    
     if (req.body.vinculo === "Discente") erros = errorsController.getErrosFormDiscente(req);
     else if (req.body.vinculo === "Docente") erros = errorsController.getErrosFormDocente(req);
     else if (req.body.vinculo === "Servidor") erros = errorsController.getErrosFormServidor(req);
@@ -20,7 +25,9 @@ exports.criarProcesso = (req, res) => {
     else if (req.body.tipoServico === "impressaoPCB") code = "PCB";
     else return res.status(200).json({ erroServico: true, msg: "Você precisa selecionar um serviço" });
     
-    req.body.codigo = gerateCode.start(code);
+    /* Atualizando variaveis remanecentes para salvar no banco. */
+
+    req.body.codigo = methods.start(code);
     req.body.processamento = [
         {
             status: "Enviado",
@@ -28,7 +35,16 @@ exports.criarProcesso = (req, res) => {
             data: new Date()
         }
     ];
-    console.log(req.body);
-    res.status(200).json({ status: "ok" });
-    //console.log(__dirname + "/../../")
+    req.body.urlArquivo = `./src/processos/${req.body.codigo}/${req.body.codigo}${methods.getExt(req.files.arquivo)}`;
+
+    /* Movendo arquivo enviado para a pasta dos processos. */
+
+    methods.createDir(`./src/processos/${req.body.codigo}`, (statusDir, erroDir)=>{
+        if(erroDir) return res.status(500).json({msg:"Problema ao criar diretorio, tente novamente."});
+        methods.salveFile(req.files.arquivo,req.body.urlArquivo, (statusFile, erroFile)=>{
+            if(erroFile) return res.status(500).json({msg:"Problema ao criar arquivo, tente novamente."});
+            /* Salvando dados no banco */
+            
+        });
+    });
 };

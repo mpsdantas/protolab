@@ -17,6 +17,7 @@ const Processo = new Schema({
     quantidade: Number,
     configPcb: String,
     codigo: String,
+    urlArquivo:String,
     processamento:[
         {
             status: String,

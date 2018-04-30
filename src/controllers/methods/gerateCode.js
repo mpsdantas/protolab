@@ -9,7 +9,6 @@ const gerateHash = () => {
     return year + month + day + hour + minute + second;
 }
 
-
 exports.start = (code = "PRO") => {
     return `${code}${gerateHash()}`;
 }

@@ -16,6 +16,9 @@ const expressValidator = require('express-validator');
 /* Importar o módulo do express-session. */
 const expressSession = require('express-session');
 
+//  Importando o módulo do mongoose.
+const mongoose = require('mongoose');
+
 /* Importar o módulo do express-fileupload. */
 const fileUpload = require('express-fileupload');
 

@@ -26,7 +26,8 @@
     "express-session": "1.15.6",
     "express-validation": "1.0.2",
     "express-validator": "5.0.2",
-    "joi": "^13.2.0"
+    "joi": "^13.2.0",
+    "mongoose": "5.0.16"
   },
   "devDependencies": {
     "cz-ptbr-changelog": "^1.0.1"

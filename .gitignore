@@ -59,3 +59,6 @@ typings/
 .env
 variables.env
 
+# pasta de processos
+processos/
+processos/*

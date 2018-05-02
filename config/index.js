@@ -33,8 +33,10 @@ app.set('views', './src/views');
 app.use(express.static('./src/public'));
 
 /*Configurando o fileUpload*/
-app.use(fileUpload({ limits: { fileSize: 15 * 1024 * 1024 },
-	safeFileNames: true, preserveExtension: true }));
+app.use(fileUpload({
+    limits: { fileSize: 15 * 1024 * 1024 },
+    safeFileNames: true, preserveExtension: true
+}));
 
 /* configurar o middleware body-parser */
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -57,6 +59,13 @@ app.use(expressSession({
 consign().include('src/models')
     .then('src/routes')
     .then('src/controllers').into(app);
+
+//  Conecta com o banco de dados e lida com problemas de conexão
+mongoose.connect(process.env.DATABASE);
+mongoose.Promise = global.Promise; // → Queremos que o mongoose utilize promises ES6
+mongoose.connection.on('error', err => {
+    console.log(`🙅 🚫 → ${err.message}`);
+});
 
 /* exportar o objeto app */
 module.exports = app;

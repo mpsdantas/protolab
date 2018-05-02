@@ -25,10 +25,7 @@ const Processo = new Schema({
             data: Date
         }
     ],
-    dataAbertura: {
-        type: Date,
-        default: new Date()
-    },
+    dataAbertura: Date,
     dataFechamento: Date
 
 });

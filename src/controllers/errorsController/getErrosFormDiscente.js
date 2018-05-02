@@ -3,7 +3,7 @@ exports.getErrosFormDiscente = (req) =>{
     req.assert('emailSolicitante', 'O email não pode ser vazio.').notEmpty();
     req.assert('nomeProjeto', 'O nome do projeto não pode ser vazio.').notEmpty();
     req.assert('profResponsavel', 'O nome do professor responsavel não pode ser vazio.').notEmpty();
-    req.assert('emailProf', 'O e-mail do professor não pode ser vazio.').notEmpty();
+    req.assert('emailProfResponsavel', 'O e-mail do professor não pode ser vazio.').notEmpty();
     req.assert('departamento', 'O departamento não pode ser vazio.').notEmpty();
     req.assert('tipoServico', 'O tipo de serviço não pode ser vazio').notEmpty();
     req.assert('quantidade', 'A quantidade não pode ser vazia').notEmpty();

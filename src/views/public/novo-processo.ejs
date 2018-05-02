@@ -96,11 +96,17 @@
                         <div class="col-12">
                             <form id="formProcesso" method="post" action="/novo-processo" enctype="multipart/form-data" class="card">
                                 <div class="card-header">
-                                    <h3 class="card-title">Formulário para criação de novo processo</h3>
+                                    <h3 id="textoCabecalho" class="card-title">Formulário para criação de novo processo</h3>
                                 </div>
                                 <div class="card-body">
-                                    <div class="col-lg-8 offset-lg-2">
-                                        <div class="form-group">
+                                    <div id="gifLoad" class="col-lg-8 offset-lg-2">
+                                        <center>
+                                            <img class="img img-responsive" src="./img/load.gif"/>
+                                        </center>
+                                    </div>
+                                    <div id="formularioDados" class="col-lg-8 offset-lg-2">
+                                        <div id="erros"></div>
+                                        <div id="divVinculo" class="form-group">
                                             <label class="form-label">Vinculo:
                                                 <span class="form-required">*</span>
                                             </label>
@@ -261,6 +267,7 @@
                                                 <span class="form-required">*</span>
                                             </label>
                                             <select id="configPcb" class="form-control custom-select">
+                                                <option value="Nenhum">Selecione uma opção</option>
                                                 <option value="topLayer">Top Layer</option>
                                                 <option value="bottomLayer">Bottom Layer</option>
                                                 <option value="dualLayer" disabled>Dual Layer</option>
@@ -277,7 +284,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card-footer text-right">
+                                <div id="informacoesBottom" class="card-footer text-right">
                                     <div class="d-flex">
                                         <a href="javascript:redirectHome()" class="btn btn-danger">Cancelar</a>
                                         <button type="submit" class="btn btn-primary ml-auto">Enviar</button>
@@ -301,6 +308,28 @@
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>
+        function showErrosForm(erro) {
+            console.log(erro);
+            $('#erros').empty();
+            let msg = "";
+            let erros = erro.erros;
+            for (let i = 0; i < erros.length; i++) {
+                msg += `${erros[i].msg}<br>`;
+            }
+            let showMsg =   `<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <center>${msg}</center>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
+                            </div>`;
+            $('#erros').append(showMsg);
+        }
+        function showErrosFile(erro){
+            $('#erros').empty();
+            let showMsg =   `<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <center>${erro.msg}</center>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
+                            </div>`;
+            $('#erros').append(showMsg);
+        }
         function exibirExterno() {
             $('#solicitanteDiv').show();
             $('#emailSolicitanteDiv').show();
@@ -315,6 +344,7 @@
             $('#quantidadeDiv').hide();
             $('#configPcbDiv').hide();
             $('#arquivoDiv').hide();
+            $('#informacoesBottom').show();
         }
         function exibirServidor() {
             $('#solicitanteDiv').show();
@@ -330,6 +360,7 @@
             $('#quantidadeDiv').hide();
             $('#configPcbDiv').hide();
             $('#arquivoDiv').hide();
+            $('#informacoesBottom').show();
         }
         function exibirDocente() {
             $('#solicitanteDiv').show();
@@ -345,11 +376,12 @@
             $('#quantidadeDiv').hide();
             $('#configPcbDiv').hide();
             $('#arquivoDiv').hide();
+            $('#informacoesBottom').show();
         }
         function redirectHome() {
             let irParaHome;
             if (confirm("Você deseja realmente cancelar seu formulário e ir para página principal?")) {
-                window.location.href = "index-busca.html";
+                window.location.href = "/";
             }
         }
         function exibirDiscente() {
@@ -366,6 +398,7 @@
             $('#quantidadeDiv').hide();
             $('#configPcbDiv').hide();
             $('#arquivoDiv').hide();
+            $('#informacoesBottom').show();
         }
         function ocultarAll() {
             $('#quantidadeDiv').hide();
@@ -381,6 +414,8 @@
             $('#quantidadeDiv').hide();
             $('#configPcbDiv').hide();
             $('#arquivoDiv').hide();
+            $('#gifLoad').hide();
+            $('#informacoesBottom').hide();
         }
         function mudancaTipoProcesso(valor) {
             if (valor === "impressao3d") {
@@ -400,6 +435,17 @@
                 $('#configPcbDiv').hide();
                 $('#arquivoDiv').hide();
                 $('#labelAviso').empty();
+            }
+        }
+        function reexibirForm(vinculo){
+            if (vinculo === "Discente") {
+                exibirDiscente();
+            } else if (vinculo === "Docente") {
+                exibirDocente();
+            } else if (vinculo === "Servidor") {
+                exibirServidor();
+            } else if (vinculo === "Externo") {
+                exibirExterno();
             }
         }
         $(document).ready(function () {
@@ -448,7 +494,10 @@
                 formData.append('arquivo', arquivo);
                 formData.append('departamento', departamento);
                 // POPULANDO FORM //
-                
+                ocultarAll();
+                $('#divVinculo').hide();
+                $('#gifLoad').show();
+
                 $.ajax({
                     type: "POST",
                     enctype: 'multipart/form-data',
@@ -459,7 +508,25 @@
                     cache: false,
                     timeout: 600000,
                     success: function (data) {
-                        console.log(data);
+                        if (data.erroForm){
+                            reexibirForm($('#tipoVinculo').val());
+                            mudancaTipoProcesso($('#tipoProcesso').val());
+                            $('#gifLoad').hide();
+                            showErrosForm(data);
+                        }else if(data.statusErroFile){
+                            reexibirForm($('#tipoVinculo').val());
+                            mudancaTipoProcesso($('#tipoProcesso').val());
+                            $('#gifLoad').hide();
+                            showErrosFile(data);
+                        }else if(data.status){
+                            ocultarAll();
+                            $('#divVinculo').hide();
+                            $('#textoCabecalho').empty();
+                            $('#textoCabecalho').append("Envio realizado com sucesso");
+                            $('#erros').empty();
+                            let texto = `<h2 style="text-align: justify;">O seu processo foi criado, anote ou guarde o seguinte código: <strong style="color:#B71C1C">${data.codigo}</strong> ele será o principal meio de comunicação entre o PROTOLAB e você, com ele você poderá mandar mensagens para exclarecer dúvidas ou fazer um acompanhamento mais detalhado do seu processo. Esse código foi enviado para o seu e-mail: <strong style="color:#1B5E20">${data.email}.</strong></h2>`
+                            $('#erros').append(texto);
+                        }
                     },
                     error: function (e) {
                         console.log("ERROR : ", e);

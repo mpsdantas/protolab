@@ -92,7 +92,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-12">
-                            <form action="https://httpbin.org/post" method="post" class="card">
+                            <form id="formOrcamento" class="card">
                                 <div class="card-header">
                                     <h3 class="card-title">Formulário para orçamento de projeto</h3>
                                 </div>
@@ -102,25 +102,25 @@
                                             <label class="form-label">Nome:
                                                 <span class="form-required">*</span>
                                             </label>
-                                            <input type="text" class="form-control" placeholder="Insira seu nome aqui" required>
+                                            <input id="nome" type="text" class="form-control" placeholder="Insira seu nome aqui">
                                         </div>
                                         <div class="form-group">
                                             <label class="form-label">E-mail:
                                                 <span class="form-required">*</span>
                                             </label>
-                                            <input type="text" class="form-control" placeholder="Insira seu e-mail aqui" required>
+                                            <input id="email" type="text" class="form-control" placeholder="Insira seu e-mail aqui">
                                         </div>
                                         <div class="form-group">
                                             <label class="form-label">Telefone:
                                                 <span class="form-required">*</span>
                                             </label>
-                                            <input type="tel" class="form-control" placeholder="Insira seu telefone aqui" required/>
+                                            <input id="telefone" type="tel" class="form-control" placeholder="Insira seu telefone aqui" />
                                         </div>
                                         <div class="form-group">
                                             <label class="form-label">Tipo de serviço:
                                                 <span class="form-required">*</span>
                                             </label>
-                                            <select name="tipoProcesso" class="form-control custom-select">
+                                            <select id="tipoProcesso" name="tipoProcesso" class="form-control custom-select">
                                                 <option value="nenhum">Nenhum item selecionado</option>
                                                 <option value="impressao3d">Impressão 3D</option>
                                                 <option value="impressaoPCB">Confecção de PCB</option>
@@ -130,13 +130,13 @@
                                             <label class="form-label">Quantidade:
                                                 <span class="form-required">*</span>
                                             </label>
-                                            <input type="number" class="form-control" placeholder="Quantidade de peças aqui" required/>
+                                            <input id="quantidade" type="number" class="form-control" placeholder="Quantidade de peças aqui" />
                                         </div>
                                         <div id="configPcbDiv" class="form-group">
                                             <label class="form-label">Configuração para PCB:
                                                 <span class="form-required">*</span>
                                             </label>
-                                            <select name="tipoProcesso" class="form-control custom-select">
+                                            <select id="configPcb" name="tipoProcesso" class="form-control custom-select">
                                                 <option value="topLayer">Top Layer</option>
                                                 <option value="bottomLayer">Bottom Layer</option>
                                                 <option value="dualLayer" disabled>Dual Layer</option>
@@ -147,11 +147,9 @@
                                                 <span class="form-required">*</span>
                                             </div>
                                             <div class="custom-file">
-                                                <input type="file">
+                                                <input id="arquivo" type="file">
                                             </div>
                                             <label id="labelAviso" style="color: red; font-size: 14px; font-weight: bold"></label>
-
-
                                         </div>
                                     </div>
                                 </div>
@@ -208,6 +206,54 @@
                     $('#arquivoDiv').hide();
                     $('#labelAviso').empty();
                 }
+            });
+            $('#formOrcamento').submit(function (event) {
+                event.preventDefault();
+                let nome = $('#nome').val();
+                let email = $('#email').val();
+                let telefone = $('#telefone').val();
+                let tipoProcesso = $('#tipoProcesso').val();
+                let configPcb = $('#configPcb').val();
+                let quantidade = $('#quantidade').val();
+                let arquivo = $('#arquivo')[0].files[0];
+                let formData = new FormData();
+                data = {
+                    nome,
+                    email,
+                    telefone,
+                    tipoProcesso,
+                    configPcb,
+                    quantidade,
+                    arquivo
+                };
+                
+                // POPULANDO FORM //
+                formData.append('nome', nome);
+                formData.append('email', email);
+                formData.append('telefone', telefone);
+                formData.append('tipoProcesso', tipoProcesso);
+                formData.append('configPcb', configPcb);
+                formData.append('quantidade', quantidade);
+                formData.append('arquivo', arquivo);
+                // POPULANDO FORM //
+
+                $.ajax({
+                    type: "POST",
+                    enctype: 'multipart/form-data',
+                    url: "/novo-orcamento",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    cache: false,
+                    timeout: 600000,
+                    success: function (data) {
+                        console.log(data);
+                    },
+                    error: function (e) {
+                        console.log("ERROR : ", e);
+                    }
+                });
+
             });
         });
     </script>

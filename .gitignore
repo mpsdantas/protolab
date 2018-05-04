@@ -62,3 +62,14 @@ variables.env
 # pasta de processos
 processos/
 processos/*
+
+# pasta orcamentos 
+orcamentos/
+src/orcamentos/*
+orcamentos/*
+
+# pasta uploads
+uploads/
+uploads/*
+src/uploads/*
+

@@ -36,6 +36,7 @@
     <script src="./assets/plugins/maps-google/plugin.js"></script>
     <!-- Input Mask Plugin -->
     <script src="./assets/plugins/input-mask/plugin.js"></script>
+    
 </head>
 
 <body class="">
@@ -92,10 +93,119 @@
                 <div style="margin-top: 5%" class="container">
                     <div class="row">
                         <div class="col-lg-10 offset-lg-1 col-md-10 offset-md-1">
-                            <div class="input-group input-group-lg">
-                                <input type="text" class="form-control" placeholder="Digite o código do seu processo para ver o seu status">
+                            <div id="erros"></div>
+                            <div id="conteudo">
+                                <center>
+                                    <h2>
+                                        <span style="font-size: 4em; color: #1B5E20;" class="fa fa-thumbs-up"></span>
+                                        <center>
+                                            <br>Concluído
+                                        </center>
+                                    </h2>
+                                    <br>
+                                </center>
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3 class="card-title">
+                                            <center>Detalhes do processo</center>
+                                        </h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="offset-md-5 col-md-2">
+                                                <center>
+                                                    <span style="font-size: 4em; color: #1B5E20;" class="fa fa-thumbs-up"></span>
+                                                </center>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="offset-md-4 col-md-4">
+                                                <center>
+                                                    <strong>Concluído</strong>
+                                                    <br> O seu processo foi concluído.
+                                                    <br> 24/03/2018 às 15:04
+                                                </center>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="offset-md-5 col-md-2">
+                                                <center>
+                                                    <span style="font-size: 4em; color: #DCE775;" class="fa fa fa-warning"></span>
+                                                </center>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="offset-md-4 col-md-4">
+                                                <center>
+                                                    <strong>Problema</strong>
+                                                    <br> O seu processo sofreu um pequeno problema
+                                                    <br> 24/03/2018 às 15:04
+                                                </center>
+                                            </div>
+                                        </div>
+                                        <hr>
+
+                                        <div class="row">
+                                            <div class="offset-md-5 col-md-2">
+                                                <center>
+                                                    <span style="font-size: 4em; color: #212121;" class="fa fa-cogs"></span>
+                                                </center>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="offset-md-4 col-md-4">
+                                                <center>
+                                                    <strong>Produção</strong>
+                                                    <br> O seu entrou em estado de produção
+                                                    <br> 23/03/2018 às 15:04
+                                                </center>
+                                            </div>
+                                        </div>
+                                        <hr>
+
+                                        <div class="row">
+                                            <div class="offset-md-5 col-md-2">
+                                                <center>
+                                                    <span style="font-size: 4em; color: #81D4FA;" class="fa fa-eye"></span>
+                                                </center>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="offset-md-4 col-md-4">
+                                                <center>
+                                                    <strong>Visualizado</strong>
+                                                    <br> O seu processo foi visualizado por um bolsista
+                                                    <br> 22/03/2018 às 15:04
+                                                </center>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="offset-md-5 col-md-2">
+                                                <center>
+                                                    <span style="font-size: 4em; color: #00E676;" class="fa fa-arrow-circle-up"></span>
+                                                </center>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="offset-md-4 col-md-4">
+                                                <center>
+                                                    <strong>Enviado</strong>
+                                                    <br> O seu processo de codigo PCB20180504145702 foi enviado
+                                                    <br> 21/03/2018 às 15:04
+                                                </center>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="pesquisa" class="input-group input-group-lg">
+                                <input id="codigo" type="text" class="form-control" placeholder="Digite o código do seu processo para ver o seu status">
                                 <span class="input-group-append">
-                                    <button class="btn btn-dark" type="submit">
+                                    <button id="buscar" class="btn btn-dark" type="submit">
                                         <i class="fa fa-search"></i>
                                     </button>
                                 </span>
@@ -114,9 +224,97 @@
                 </div>
             </div>
         </footer>
-
-
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        function retornarHtmlStatus(status, msg, data) {
+            let vetor;
+            if (status === "Enviado") vetor = "fa fa-arrow-circle-up";
+            else if (status === "Vizualizado") vetor = "fa fa-eye";
+            else if (status === "Produção") vetor = "fa fa-cogs";
+            else if (status === "Problema") vetor = "fa fa fa-warning";
+            else if (status === "Concluído") vetor = "fa fa-thumbs-up";
+            else if (status === "Cancelado") vetor = "fa fa-remove";
+            let html = `<hr>
+                        <div class="row">
+                            <div class="offset-md-5 col-md-2">
+                                <center>
+                                    <span style="font-size: 4em; color: #00E676;" class="fa fa-arrow-circle-up"></span>
+                                </center>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="offset-md-4 col-md-4">
+                                <center>
+                                    <strong>Enviado</strong>
+                                    <br> O seu processo de codigo PCB20180504145702 foi enviado
+                                    <br> 21/03/2018 às 15:04
+                                </center>
+                            </div>
+                        </div>`;
+        }
+        function requestData(urlGetProcesso, urlGetOrcamento, cb) {
+            $.ajax({
+                type: "GET",
+                url: urlGetProcesso,
+                success: function (dataProcesso) {
+                    let buscaProcesso = dataProcesso;
+                    $.ajax({
+                        type: "GET",
+                        url: urlGetOrcamento,
+                        success: function (dataOrcamento) {
+                            let buscaOrcamento = dataOrcamento;
+                            let dadoBusca;
+                            if (!buscaOrcamento.busca && !buscaProcesso.busca) {
+                                dadoBusca = { tipo: false };
+                                return cb(dadoBusca);
+                            }
+                            if (buscaOrcamento.busca) dadoBusca = { tipo: "Orcamento", buscaOrcamento };
+                            else dadoBusca = { tipo: "Processo", buscaProcesso };
+                            cb(dadoBusca);
+                        },
+                        error: function (erroOrcamento) {
+                            console.log("ERROR : ", erroOrcamento);
+                        }
+                    });
+                },
+                error: function (erroProcesso) {
+                    console.log("ERROR : ", erroProcesso);
+                }
+            });
+        }
+        function nadaEncontrado() {
+            $('#erros').empty();
+            let showMsg = `<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <center>Nenhum resultado para o código informado.</center>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
+                            </div>`;
+            $('#erros').append(showMsg);
+        }
+        $(document).ready(function () {
+            $("#buscar").click(function (event) {
+                event.preventDefault();
+                let codigo = $('#codigo').val();
+                let urlGetProcesso = `buscar-processo/${codigo}`;
+                let urlGetOrcamento = `buscar-orcamento/${codigo}`;
+                requestData(urlGetProcesso, urlGetOrcamento, function (dadoBusca) {
+                    console.log(dadoBusca);
+                    if (!dadoBusca.tipo) {
+                        nadaEncontrado();
+                        return;
+                    }
+                    let data = new Date(dadoBusca.buscaOrcamento.objetoBusca.dataAbertura);
+                    console.log(data.toLocaleString());
+                    $('#pesquisa').hide();
+                    if (dadoBusca.tipo === "Orcamento") {
+                        let dado = dadoBusca.objetoBusca;
+                    } else if (dadoBusca.tipo === "Processo") {
+
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Processo = mongoose.model('Processo');
-const errorsController = require('../errorsController');
+const errorsController = require('./errorsControllerProcessos');
 const methods = require('../methods');
 
 exports.criarProcesso = async (req, res) => {
@@ -39,10 +39,10 @@ exports.criarProcesso = async (req, res) => {
             data: new Date()
         }
     ];
-    req.body.urlArquivo = `./src/processos/${req.body.codigo}/${req.body.codigo}${methods.getExt(req.files.arquivo)}`;
+    req.body.urlArquivo = `./src/uploads/processos/${req.body.codigo}/${req.body.codigo}${methods.getExt(req.files.arquivo)}`;
 
     /* Movendo arquivo enviado para a pasta dos processos. */
-    methods.createDir(`./src/processos/${req.body.codigo}`, (statusDir, erroDir) => {
+    methods.createDir(`./src/uploads/processos/${req.body.codigo}`, (statusDir, erroDir) => {
         if (erroDir) return res.status(500).json({ msg: "Problema ao criar diretorio, tente novamente." });
         methods.salveFile(req.files.arquivo, req.body.urlArquivo, (statusFile, erroFile) => {
             if (erroFile) return res.status(500).json({ msg: "Problema ao criar arquivo, tente novamente." });

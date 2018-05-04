@@ -94,10 +94,19 @@
                         <div class="col-12">
                             <form id="formOrcamento" class="card">
                                 <div class="card-header">
-                                    <h3 class="card-title">Formulário para orçamento de projeto</h3>
+                                    <h3 id="OrcTitle" class="card-title">Formulário para orçamento de projeto</h3>
                                 </div>
                                 <div class="card-body">
-                                    <div class="col-lg-8 offset-lg-2">
+                                    <div id="gifLoad" class="col-lg-8 offset-lg-2">
+                                        <center>
+                                            <img class="img img-responsive" src="./img/load.gif" />
+                                        </center>
+                                    </div>
+                                    <div id="divSucesso" class="col-lg-8 offset-lg-2">
+
+                                    </div>
+                                    <div id="divForm" class="col-lg-8 offset-lg-2">
+                                        <div id="erros"></div>
                                         <div class="form-group">
                                             <label class="form-label">Nome:
                                                 <span class="form-required">*</span>
@@ -183,7 +192,35 @@
                 window.location.href = "index-busca.html";
             }
         }
+        function showErrosForm(data) {
+            let erros = data.erro;
+            let msg = "";
+            for (let i = 0; i < erros.length; i++) {
+                msg += `${erros[i].msg}<br>`;
+            }
+            let showMsg = `<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <center>${msg}</center>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
+                            </div>`;
+            $('#erros').empty();
+            $('#erros').append(showMsg);
+            $('#divForm').show();
+            $('#gifLoad').hide();
+            return;
+        }
+        function showErrosFile(data) {
+            let showMsg = `<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <center>${data.msg}</center>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
+                            </div>`;
+            $('#erros').empty();
+            $('#erros').append(showMsg);
+            $('#divForm').show();
+            $('#gifLoad').hide();
+            return;
+        }
         $(document).ready(function () {
+            $('#gifLoad').hide();
             $('#quantidadeDiv').hide();
             $('#configPcbDiv').hide();
             $('#arquivoDiv').hide();
@@ -226,17 +263,18 @@
                     quantidade,
                     arquivo
                 };
-                
+
                 // POPULANDO FORM //
                 formData.append('nome', nome);
                 formData.append('email', email);
                 formData.append('telefone', telefone);
-                formData.append('tipoProcesso', tipoProcesso);
+                formData.append('tipoServico', tipoProcesso);
                 formData.append('configPcb', configPcb);
                 formData.append('quantidade', quantidade);
                 formData.append('arquivo', arquivo);
                 // POPULANDO FORM //
-
+                $('#divForm').hide();
+                $('#gifLoad').show();
                 $.ajax({
                     type: "POST",
                     enctype: 'multipart/form-data',
@@ -247,7 +285,18 @@
                     cache: false,
                     timeout: 600000,
                     success: function (data) {
-                        console.log(data);
+                        if (data.erroForm) {
+                            showErrosForm(data);
+                        } else if (data.statusErroFile) {
+                            showErrosFile(data);
+                        } else if (data.status) {
+                            $('#divForm').hide();
+                            $('#gifLoad').hide();
+                            $('#OrcTitle').empty();
+                            $('#OrcTitle').append("Orçamento enviado com sucesso")
+                            let texto = `<center><h2 style="text-align: justify;">O seu orçamento foi enviado, anote ou guarde o seguinte código: <strong style="color:#B71C1C">${data.codigo}</strong> ele será o principal meio de comunicação entre o PROTOLAB e você, com ele você poderá mandar mensagens para exclarecer dúvidas ou fazer um acompanhamento mais detalhado do seu orçamento. Esse código foi enviado para o seu e-mail: <strong style="color:#1B5E20">${data.email}.</strong></h2></center>`
+                            $('#divSucesso').append(texto);
+                        }
                     },
                     error: function (e) {
                         console.log("ERROR : ", e);

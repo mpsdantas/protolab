@@ -36,7 +36,7 @@
     <script src="./assets/plugins/maps-google/plugin.js"></script>
     <!-- Input Mask Plugin -->
     <script src="./assets/plugins/input-mask/plugin.js"></script>
-    
+
 </head>
 
 <body class="">
@@ -95,110 +95,22 @@
                         <div class="col-lg-10 offset-lg-1 col-md-10 offset-md-1">
                             <div id="erros"></div>
                             <div id="conteudo">
-                                <center>
-                                    <h2>
-                                        <span style="font-size: 4em; color: #1B5E20;" class="fa fa-thumbs-up"></span>
-                                        <center>
-                                            <br>Concluído
-                                        </center>
-                                    </h2>
-                                    <br>
-                                </center>
                                 <div class="card">
                                     <div class="card-header">
-                                        <h3 class="card-title">
+                                        <h3 id="tituloCard" class="card-title">
                                             <center>Detalhes do processo</center>
                                         </h3>
                                     </div>
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="offset-md-5 col-md-2">
-                                                <center>
-                                                    <span style="font-size: 4em; color: #1B5E20;" class="fa fa-thumbs-up"></span>
-                                                </center>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="offset-md-4 col-md-4">
-                                                <center>
-                                                    <strong>Concluído</strong>
-                                                    <br> O seu processo foi concluído.
-                                                    <br> 24/03/2018 às 15:04
-                                                </center>
-                                            </div>
-                                        </div>
-                                        <hr>
-                                        <div class="row">
-                                            <div class="offset-md-5 col-md-2">
-                                                <center>
-                                                    <span style="font-size: 4em; color: #DCE775;" class="fa fa fa-warning"></span>
-                                                </center>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="offset-md-4 col-md-4">
-                                                <center>
-                                                    <strong>Problema</strong>
-                                                    <br> O seu processo sofreu um pequeno problema
-                                                    <br> 24/03/2018 às 15:04
-                                                </center>
-                                            </div>
-                                        </div>
-                                        <hr>
+                                    <div id="conteudoCard" class="card-body">
 
-                                        <div class="row">
-                                            <div class="offset-md-5 col-md-2">
-                                                <center>
-                                                    <span style="font-size: 4em; color: #212121;" class="fa fa-cogs"></span>
-                                                </center>
-                                            </div>
+                                    </div>
+                                    <div class="card-footer text-right">
+                                        <div class="d-flex">
+                                            <button id="exibirMensagens" type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">
+                                                Mensagens
+                                            </button>
+                                            <a href="/" class="btn btn-primary ml-auto">Fazer nova pesquisa</a>
                                         </div>
-                                        <div class="row">
-                                            <div class="offset-md-4 col-md-4">
-                                                <center>
-                                                    <strong>Produção</strong>
-                                                    <br> O seu entrou em estado de produção
-                                                    <br> 23/03/2018 às 15:04
-                                                </center>
-                                            </div>
-                                        </div>
-                                        <hr>
-
-                                        <div class="row">
-                                            <div class="offset-md-5 col-md-2">
-                                                <center>
-                                                    <span style="font-size: 4em; color: #81D4FA;" class="fa fa-eye"></span>
-                                                </center>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="offset-md-4 col-md-4">
-                                                <center>
-                                                    <strong>Visualizado</strong>
-                                                    <br> O seu processo foi visualizado por um bolsista
-                                                    <br> 22/03/2018 às 15:04
-                                                </center>
-                                            </div>
-                                        </div>
-                                        <hr>
-                                        <div class="row">
-                                            <div class="offset-md-5 col-md-2">
-                                                <center>
-                                                    <span style="font-size: 4em; color: #00E676;" class="fa fa-arrow-circle-up"></span>
-                                                </center>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="offset-md-4 col-md-4">
-                                                <center>
-                                                    <strong>Enviado</strong>
-                                                    <br> O seu processo de codigo PCB20180504145702 foi enviado
-                                                    <br> 21/03/2018 às 15:04
-                                                </center>
-                                            </div>
-                                        </div>
-
-
                                     </div>
                                 </div>
                             </div>
@@ -209,6 +121,26 @@
                                         <i class="fa fa-search"></i>
                                     </button>
                                 </span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Mensagens</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true"></span>
+                                    </button>
+                                </div>
+                                <div id="mensagensProjeto" class="modal-body">
+
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Sair</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -227,31 +159,60 @@
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>
+        function retornarMensagem(data) {
+            let cor = "border-success";
+            if(data.enviadoPor==="Publico" || data.enviadoPor==="Público") cor = "border-primary"
+            let dataExibir = new Date(data.data);
+            dataExibir = dataExibir.toLocaleString();
+            let html = `<div class="row"><div class="card ${cor}">
+                            <div class="card-body">
+                                ${data.mensagem}
+                                <br><br><hr>
+                                <p style="text-align: right"><strong>Enviado por:</strong> ${data.enviadoPor}, ${dataExibir}</p>
+                            </div>
+                        </div></div>`;
+            return html;
+        }
         function retornarHtmlStatus(status, msg, data) {
             let vetor;
-            if (status === "Enviado") vetor = "fa fa-arrow-circle-up";
-            else if (status === "Vizualizado") vetor = "fa fa-eye";
-            else if (status === "Produção") vetor = "fa fa-cogs";
-            else if (status === "Problema") vetor = "fa fa fa-warning";
-            else if (status === "Concluído") vetor = "fa fa-thumbs-up";
-            else if (status === "Cancelado") vetor = "fa fa-remove";
+            let cor;
+            if (status === "Enviado") {
+                cor = "#00E676";
+                vetor = "fa fa-arrow-circle-up";
+            } else if (status === "Visualizado") {
+                cor = "#81D4FA";
+                vetor = "fa fa-eye";
+            } else if (status === "Produção") {
+                cor = "#212121";
+                vetor = "fa fa-cogs";
+            } else if (status === "Problema") {
+                cor = "#DCE775";
+                vetor = "fa fa fa-warning";
+            } else if (status === "Concluído") {
+                cor = "#1B5E20";
+                vetor = "fa fa-thumbs-up";
+            } else if (status === "Cancelado") {
+                cor = "#1B5E20";
+                vetor = "fa fa-remove";
+            }
             let html = `<hr>
                         <div class="row">
                             <div class="offset-md-5 col-md-2">
                                 <center>
-                                    <span style="font-size: 4em; color: #00E676;" class="fa fa-arrow-circle-up"></span>
+                                    <span style="font-size: 4em; color: ${cor};" class="${vetor}"></span>
                                 </center>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="offset-md-4 col-md-4">
+                            <div class="offset-md-3 col-md-6">
                                 <center>
-                                    <strong>Enviado</strong>
-                                    <br> O seu processo de codigo PCB20180504145702 foi enviado
-                                    <br> 21/03/2018 às 15:04
+                                    <strong>${status}</strong>
+                                    <br> ${msg}
+                                    <br> ${data}
                                 </center>
                             </div>
                         </div>`;
+            return html;
         }
         function requestData(urlGetProcesso, urlGetOrcamento, cb) {
             $.ajax({
@@ -292,27 +253,68 @@
             $('#erros').append(showMsg);
         }
         $(document).ready(function () {
+            $('#conteudo').hide();
             $("#buscar").click(function (event) {
                 event.preventDefault();
                 let codigo = $('#codigo').val();
                 let urlGetProcesso = `buscar-processo/${codigo}`;
                 let urlGetOrcamento = `buscar-orcamento/${codigo}`;
                 requestData(urlGetProcesso, urlGetOrcamento, function (dadoBusca) {
-                    console.log(dadoBusca);
                     if (!dadoBusca.tipo) {
                         nadaEncontrado();
                         return;
                     }
-                    let data = new Date(dadoBusca.buscaOrcamento.objetoBusca.dataAbertura);
-                    console.log(data.toLocaleString());
                     $('#pesquisa').hide();
+                    let objetoRecebido;
                     if (dadoBusca.tipo === "Orcamento") {
-                        let dado = dadoBusca.objetoBusca;
+                        objetoRecebido = dadoBusca.buscaOrcamento.objetoBusca.processamento;
+                        $('#tituloCard').empty();
+                        $('#tituloCard').append('Detalhes do orçamento');
                     } else if (dadoBusca.tipo === "Processo") {
-
+                        objetoRecebido = dadoBusca.buscaProcesso.objetoBusca.processamento;
+                        $('#tituloCard').empty();
+                        $('#tituloCard').append('Detalhes do processo');
+                    }
+                    let html = "";
+                    for (let i = 0; i < objetoRecebido.length; i++) {
+                        let data = new Date(objetoRecebido[i].data);
+                        html += retornarHtmlStatus(objetoRecebido[i].status, objetoRecebido[i].msg, data.toLocaleString());
+                    }
+                    $('#conteudo').show();
+                    $('#conteudoCard').append(html);
+                });
+            });
+            $('#exibirMensagens').click(function (event) {
+                event.preventDefault();
+                let codigo = $('#codigo').val();
+                let urlGet = `/buscar-mensagens/${codigo}`;
+                $.ajax({
+                    type: "GET",
+                    url: urlGet,
+                    timeout: 600000,
+                    success: function (data) {
+                        if (data.busca) {
+                            let mensagens = data.mensagens;
+                            if (mensagens.length > 0) {
+                                let msg = "";
+                                for (let i = mensagens.length - 1; i >= 0; i--) {
+                                    msg += retornarMensagem(mensagens[i]);
+                                }
+                                $('#mensagensProjeto').empty();
+                                $('#mensagensProjeto').append(msg)
+                            } else {
+                                $('#mensagensProjeto').empty();
+                                $('#mensagensProjeto').append('<center><h3>Não existem mensagens</h3></center>');
+                            }
+                        }
+                    },
+                    error: function (e) {
+                        console.log("ERROR : ", e);
                     }
                 });
             });
+
+
         });
     </script>
 </body>

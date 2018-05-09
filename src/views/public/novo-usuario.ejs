@@ -22,7 +22,7 @@
     <script src="./assets/js/require.min.js"></script>
     <script>
         requirejs.config({
-            baseUrl: '.'
+            baseUrl: '/static/'
         });
     </script>
     <!-- Dashboard Core -->
@@ -220,7 +220,7 @@
                     }
                 });
             });
-
+            
             $('#formCadastro').submit(function (event) {
                 event.preventDefault();
                 let nome = $('#nomeCadastro').val()

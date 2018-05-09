@@ -6,6 +6,10 @@ const Orcamento = new Schema({
         type: Boolean,
         default: false
     },
+    pausado:{
+        type: Boolean,
+        default: false
+    },
     valor: String,
     nome: String,
     email: String,

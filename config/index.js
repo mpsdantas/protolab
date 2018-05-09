@@ -30,7 +30,8 @@ app.set('view engine', 'ejs');
 app.set('views', './src/views');
 
 /* configurar o middleware express.static */
-app.use(express.static('./src/public'));
+app.use(express.static(__dirname + '/../src/public'));
+app.use('/static', express.static(__dirname + '/../src/public'));
 
 /*Configurando o fileUpload*/
 app.use(fileUpload({

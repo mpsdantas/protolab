@@ -14,8 +14,7 @@ exports.criarNovoUsuario = async (application, req, res) => {
     
     if(errosFile.semFoto){
         req.body.urlFotoPerfil = `./src/uploads/usuarios/img-perfil/default.png`;
-        const novoUsuario = new Usuario(req.body);
-        await novoUsuario.save();
+        await Usuario.update({email:req.body.email},{$set:{nome:req.body.nome, tipoUsuario: req.body.tipoUsuario, senha: req.body.senha, urlFotoPerfil: req.body.urlFotoPerfil, ativado: true}});
         req.session.status = true;
         req.session.email = req.body.email;
         req.session.nome  = req.body.nome;

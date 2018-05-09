@@ -6,6 +6,10 @@ const Processo = new Schema({
         type: Boolean,
         default: false
     },
+    pausado:{
+        type: Boolean,
+        default: false
+    },
     vinculo: String,
     solicitante: String,
     emailSolicitante: String,

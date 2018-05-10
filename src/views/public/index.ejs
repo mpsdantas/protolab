@@ -276,7 +276,7 @@
                         $('#tituloCard').append('Detalhes do processo');
                     }
                     let html = "";
-                    for (let i = 0; i < objetoRecebido.length; i++) {
+                    for (let i = objetoRecebido.length-1; i >= 0; i--) {
                         let data = new Date(objetoRecebido[i].data);
                         html += retornarHtmlStatus(objetoRecebido[i].status, objetoRecebido[i].msg, data.toLocaleString());
                     }

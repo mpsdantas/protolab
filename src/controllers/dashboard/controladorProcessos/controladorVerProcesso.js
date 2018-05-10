@@ -7,6 +7,14 @@ exports.verProcesso = async (application, req, res) =>{
     let emailUser = req.session.email;
     let tipoUsuario = req.session.tipoUsuario;
     const buscaProcesso = await Processo.findOne({_id: new ObjectId(id)});
-    console.log(buscaProcesso)
+    if(buscaProcesso.processamento.length===1){
+        await Processo.update({_id: new ObjectId(id)},{$push:{
+            processamento:{
+                status: "Visualizado",
+                msg: "Seu processo foi visualizado.",
+                data: new Date()
+            }
+        }});
+    }
     res.render('dashboard/ver-processo',{nome, emailUser, tipoUsuario,buscaProcesso});
 };

@@ -16,7 +16,7 @@
     <link rel="icon" href="/static/img/favicon.ico" type="image/x-icon" />
     <link rel="shortcut icon" type="image/x-icon" href="/static/img/favicon.ico" />
 
-    <title>Dashboard - Laboratório de Prototipagem</title>
+    <title>Processo <%=buscaProcesso.codigo%> - Laboratório de Prototipagem</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,500,500i,600,600i,700,700i&amp;subset=latin-ext">
     <script src="/static/assets/js/require.min.js"></script>
@@ -247,7 +247,28 @@
                                                             </td>
                                                         </tr>
                                                     <%}%>
-                                                    
+                                                    <tr style="text-align: left">
+                                                        <td>
+                                                            <a href="/dashboard/realizar-atualizacao-status-processo/<%=buscaProcesso._id%>" class="btn btn-block btn-primary">Atualizar status do processo</a>
+                                                        </td>
+                                                        <td style="text-align: left">
+                                                            <%let cor = ""%>
+                                                            <%let mensagem=""%>
+                                                            <%let status=""%>
+                                                            <%if(buscaProcesso.pausado){%>
+                                                                <%cor = "btn-success"%>
+                                                                <%mensagem="Despausar"%>
+                                                                <%status="Despausar"%>
+                                                            <%}else{%>
+                                                                <%cor = "btn-danger"%>
+                                                                <%mensagem="Pausar"%>
+                                                                <%status="Pausado"%>
+                                                            <%}%>
+                                                            <button value="<%=buscaProcesso._id%>" class="btn btn-block <%=cor%> pausarProcesso">
+                                                               <%=mensagem%> 
+                                                            </button>
+                                                        </td>
+                                                    </tr>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -274,9 +295,28 @@
 
     <script>
         $(document).ready(function () {
-            $('.verProcesso').click(function () {
+            $('.pausarProcesso').click(function(){
+                let status = `<%=status%>`;
                 let id = this.value;
-                window.location.href = `/dashboard/ver-processo/${id}`
+                $.ajax({
+                    type: "POST",
+                    url: "/dashboard/realizar-atualizacao-status-processo/",
+                    data: {
+                        id,
+                        status,
+                    },
+                    timeout: 600000,
+                    success: function (data) {
+                        if (data.success) {
+                           location.reload();
+                        }
+                    },
+                    error: function (e) {
+                        console.log("ERROR : ", e);
+                    }
+                });
+
+
             });
         });
     </script>

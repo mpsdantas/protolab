@@ -14,8 +14,11 @@ module.exports = (application) => {
     application.post('/dashboard/realizar-atualizacao-status-processo/', methods.protectRoute, (req,res) => { 
         controllerDashboard.realizarAtualizacaoStatus(application, req, res);
     });
-    application.get('/dashboard/obter-processos/:busca', methods.protectRoute, (req,res) => { controllerDashboard.buscarProcesso(application, req, res)});
+    application.get('/dashboard/obter-processos/:busca', methods.protectRoute, (req,res) => {       controllerDashboard.buscarProcesso(application, req, res)});
     application.get('/dashboard/processos-pausados', methods.protectRoute, (req,res) => { 
         controllerDashboard.buscarProcessoPausado(application, req, res);
     });  
+    application.get('/dashboard/bucar-processos', methods.protectRoute, (req,res) => { 
+        controllerDashboard.viewBuscarProcessos(application, req, res);
+    }); 
 };

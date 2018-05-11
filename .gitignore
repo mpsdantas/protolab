@@ -60,13 +60,13 @@ typings/
 variables.env
 
 # pasta de processos
-processos/
-processos/*
+src/uploads/processos/
+src/uploads/processos/*
 
 # pasta orcamentos 
-orcamentos/
-src/orcamentos/*
-orcamentos/*
+src/uploads/orcamentos/
+src/uploads/orcamentos/*
+
 
 # pasta uploads
 uploads/

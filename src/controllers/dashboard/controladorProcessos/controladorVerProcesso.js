@@ -16,5 +16,5 @@ exports.verProcesso = async (application, req, res) =>{
             }
         }});
     }
-    res.render('dashboard/ver-processo',{nome, emailUser, tipoUsuario,buscaProcesso});
+    res.render('dashboard/processos/ver-processo',{nome, emailUser, tipoUsuario,buscaProcesso});
 };

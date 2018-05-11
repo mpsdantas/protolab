@@ -6,5 +6,5 @@ exports.buscarProcessoPausado = async (application, req, res) =>{
     let nome = req.session.nome;
     let emailUser = req.session.email;
     let tipoUsuario = req.session.tipoUsuario;
-    res.render('dashboard/ver-processos-pausados',{nome, emailUser, tipoUsuario, processosAberto: buscaTodosProcessos});
+    res.render('dashboard/processos/ver-processos-pausados',{nome, emailUser, tipoUsuario, processosAberto: buscaTodosProcessos});
 };

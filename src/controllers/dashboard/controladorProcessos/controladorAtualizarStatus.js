@@ -14,7 +14,7 @@ exports.realizarAtualizacaoStatus = async (application, req, res) =>{
         return;
     }
     if(req.body.status==="Concluído" || req.body.status==="Cancelado"){
-        await Processo.update({_id: new ObjectId(req.body.id)},{$set:{finalizado: true}});
+        await Processo.update({_id: new ObjectId(req.body.id)},{$set:{finalizado: true, dataFechamento: new Date()}});
     }
     await Processo.update({_id: new ObjectId(req.body.id)},{$push:{
         processamento:{

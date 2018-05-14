@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const Usuario = mongoose.model('Usuario');
 const errosUsuarioController = require('./errosUsuarioController');
 const methods = require('../methods');
+
 exports.criarNovoUsuario = async (application, req, res) => {
     const erros = errosUsuarioController.getErrosUsuarios(req);
     if (erros) return res.status(200).json({ errosForm: true, erros: erros });

@@ -20,7 +20,9 @@ module.exports = (application) => {
         controllerDashboard.viewBuscarProcessos(application, req, res);
     });
     application.get('/dashboard/todos-processos', methods.protectRoute, (req, res) => {
-        //Implementar
-        res.send('Rota com todos os processos.');
+        controllerDashboard.viewTodosOsProcessos(application, req, res);
+    });
+    application.get('/dashboard/obter-processos-faixa-data/:dataInicial/:dataFinal', methods.protectRoute, (req, res) => {
+        controllerDashboard.buscarProcessoData(application, req, res);
     });
 };

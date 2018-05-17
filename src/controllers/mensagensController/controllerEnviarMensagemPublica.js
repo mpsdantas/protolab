@@ -17,10 +17,12 @@ exports.enviarMensagemPublica = async (application, req, res) => {
         }
 
         const buscaProcesso = await Processo.findOne({ codigo: req.body.codigo, tipoServico: req.body.assunto });
-
         if (!buscaOrcamento && !buscaProcesso) return res.status(200).json({ erroCod: true, msg: "Nenhum orçamento ou processo foi encontrado para o código informado." });
+        if(!buscaOrcamento) req.body.nome = buscaProcesso.solicitante;
+        else req.body.nome = buscaOrcamento.nome;
     }
     req.body.enviadoPor = "Público";
+    req.body.lido = false;
     req.body.data = new Date();
     const novaMensagem = new Mensagem(req.body);
     await novaMensagem.save();

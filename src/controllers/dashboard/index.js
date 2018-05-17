@@ -3,10 +3,12 @@ const controlardorSair = require('./controladorSair');
 const controladorProcessos = require('./controladorProcessos');
 const controladorArquivos = require('./controladorArquivos');
 const controladorUsuario = require('./controladorUsuario');
+const controladorMensagem = require('./controladorMensagens');
 module.exports = {
     ...controladorPaginaInicial,
     ...controlardorSair,
     ...controladorProcessos,
     ...controladorArquivos,
-    ...controladorUsuario
-}
+    ...controladorUsuario,
+    ...controladorMensagem
+};

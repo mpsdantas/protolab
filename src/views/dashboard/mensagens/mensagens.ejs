@@ -115,7 +115,7 @@
                                                                         <td><%=mensagensNaoLidas[i].assunto%></td>
                                                                         <td><%=mensagensNaoLidas[i].data.toLocaleString()%></td>
                                                                         <td>
-                                                                            <a  class="btn btn-sm btn-primary" href="/dashboard/vizualizar-mensagem/:id">
+                                                                            <a  class="btn btn-sm btn-primary" href="/dashboard/vizualizar-mensagem/<%=mensagensNaoLidas[i]._id%>">
                                                                                 Visualizar
                                                                             </a>
                                                                         </td>
@@ -133,7 +133,7 @@
                                                                         <td><%=mensagensLidas[i].assunto%></td>
                                                                         <td><%=mensagensLidas[i].data.toLocaleString()%></td>
                                                                         <td>
-                                                                            <a  class="btn btn-sm btn-primary" href="/dashboard/vizualizar-mensagem/:id">
+                                                                            <a  class="btn btn-sm btn-primary" href="/dashboard/vizualizar-mensagem/<%=mensagensLidas[i]._id%>">
                                                                                 Visualizar
                                                                             </a>
                                                                         </td>

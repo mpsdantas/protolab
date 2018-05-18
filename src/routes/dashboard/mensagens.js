@@ -5,6 +5,6 @@ module.exports = (application) => {
        dashboard.viewMensagens(application, req, res);
     });
     application.get('/dashboard/vizualizar-mensagem/:id', methods.protectRoute, (req, res) => {
-        res.send('Rota funcionando.');
+        dashboard.viewMensagemUnica(application, req, res);
      });
 };

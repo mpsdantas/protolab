@@ -6,5 +6,9 @@ module.exports = (application) => {
     });
     application.get('/dashboard/vizualizar-mensagem/:id', methods.protectRoute, (req, res) => {
         dashboard.viewMensagemUnica(application, req, res);
-     });
+    });
+    
+    application.post('/dashboard/enviar-resposta-mensagem/', methods.protectRoute, (req, res) => {
+        dashboard.responderMensagem(application, req, res);
+    });
 };

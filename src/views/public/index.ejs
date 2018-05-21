@@ -114,14 +114,16 @@
                                     </div>
                                 </div>
                             </div>
-                            <div id="pesquisa" class="input-group input-group-lg">
-                                <input id="codigo" type="text" class="form-control" placeholder="Digite o código do seu processo para ver o seu status">
-                                <span class="input-group-append">
-                                    <button id="buscar" class="btn btn-dark" type="submit">
-                                        <i class="fa fa-search"></i>
-                                    </button>
-                                </span>
-                            </div>
+                            <form id="formPesquisa">
+                                <div id="pesquisa" class="input-group input-group-lg">
+                                    <input id="codigo" type="text" class="form-control" placeholder="Digite o código do seu processo para ver o seu status">
+                                    <span class="input-group-append">
+                                        <button id="buscar" class="btn btn-dark" type="submit">
+                                            <i class="fa fa-search"></i>
+                                        </button>
+                                    </span>
+                                </div>  
+                            </form>
                         </div>
                     </div>
                     <!-- Modal -->
@@ -254,7 +256,7 @@
         }
         $(document).ready(function () {
             $('#conteudo').hide();
-            $("#buscar").click(function (event) {
+            $("#formPesquisa").submit(function (event) {
                 event.preventDefault();
                 let codigo = $('#codigo').val();
                 let urlGetProcesso = `buscar-processo/${codigo}`;

@@ -227,6 +227,84 @@
                             </div>
                         </div>
                     </div>
+                    
+                    <div class="row row-cards row-deck">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Orçamentos em aberto</h3>
+                                    </div>
+                                    <%if(orcamentosAberto.length>0){%>
+                                        <div class="table-responsive">
+                                            <table class="table card-table table-vcenter text-nowrap">
+                                                <thead>
+                                                    <tr style="text-align: center">
+                                                        <th>Código</th>
+                                                        <th>Solicitante</th>
+                                                        <th>E-mail</th>
+                                                        <th>Tipo serviço</th>
+                                                        <th>Status</th>
+                                                        <th>Data de envio</th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <%for(let i=orcamentosAberto.length-1; i>=0; i--){%>
+                                                        <%let cor=""%>
+                                                        <%let status = orcamentosAberto[i].processamento[orcamentosAberto[i].processamento.length-1].status%>
+                                                        <%if (status === "Enviado") {%>
+                                                            <%cor = "bg-success"%>
+                                                        <%} else if (status === "Visualizado") {%>
+                                                            <%cor = "bg-primary"%>
+                                                        <%} else if (status === "Produção") {%>
+                                                            <%cor = "bg-dark"%>
+                                                        <%} else if (status === "Problema") {%>
+                                                            <%cor = "bg-warning"%>
+                                                        <%} else if (status === "Concluído") {%>
+                                                            <%cor = "bg-secondary"%>
+                                                        <%} else if (status === "Cancelado") {%>
+                                                            <%cor = "bg-danger"%>
+                                                        <%}%>
+                                                        <tr style="text-align: center">
+                                                            <td>
+                                                                <span class="text-muted"><%=orcamentosAberto[i].codigo%></span>
+                                                            </td>
+                                                            <td>
+                                                                <a class="text-inherit"><%=orcamentosAberto[i].nome%></a>
+                                                            </td>
+                                                            <td>
+                                                                <%=orcamentosAberto[i].email%>
+                                                            </td>
+                                                            <td>
+                                                                <%if(orcamentosAberto[i].tipoServico==="impressao3d"){%>
+                                                                    Impressão 3D
+                                                                <%}else{%>
+                                                                    Placa de circuito impresso
+                                                                <%}%>
+                                                            </td>
+                                                            <td>
+                                                                <span class="status-icon <%=cor%>"></span>
+                                                                <%=orcamentosAberto[i].processamento[orcamentosAberto[i].processamento.length-1].status%>
+                                                            </td>
+                                                            <td>
+                                                                <%=orcamentosAberto[i].dataAbertura.toLocaleString()%>
+                                                            </td>
+                                                            <td class="text-right">
+                                                                <button class="verOrcamento btn btn-secondary btn-sm" value="<%=orcamentosAberto[i]._id%>">Ver orçamento</button>
+                                                            </td>   
+                                                        </tr>
+                                                    <%}%>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    <%}else{%>
+                                        <br>
+                                        <center>Não existem orçamentos em aberto</center>
+                                        <br>    
+                                    <%}%>
+                                </div>
+                            </div>
+                        </div>
                 </div>
             </div>
         </div>
@@ -247,6 +325,10 @@
             $('.verProcesso').click(function(){
                 let id = this.value;
                 window.location.href = `/dashboard/ver-processo/${id}`
+            });
+            $('.verOrcamento').click(function(){
+                let id = this.value;
+                window.location.href = `/dashboard/ver-orcamento/${id}`
             });
         });
     </script>

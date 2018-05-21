@@ -10,7 +10,7 @@ exports.renderIndex = async (application, req, res) =>{
     const totalProcessos = await Processo.count({});
     let processosAberto = await Processo.find({finalizado:false});
     const totalOrcamento = await Orcamento.count({});
-    const orcamentosAberto = await Orcamento.find({finalizado:false});
+    const orcamentosAberto = await Orcamento.find({finalizado:false, pausado:false});
     
     let tamProcessosAberto = processosAberto.length;
     let tamOrcamentosAberto = orcamentosAberto.length;
@@ -21,5 +21,5 @@ exports.renderIndex = async (application, req, res) =>{
         if(processosAberto[i].tipoServico==="impressao3d") totalImpressao3d++;
         else totalPcb++;
     }
-    res.render('dashboard/index',{emailUser, nome, tipoUsuario, totalProcessos, totalOrcamento, tamProcessosAberto, tamOrcamentosAberto, totalImpressao3d, totalPcb, processosAberto}); 
+    res.render('dashboard/index',{emailUser, nome, tipoUsuario, totalProcessos, totalOrcamento, tamProcessosAberto, tamOrcamentosAberto, totalImpressao3d, totalPcb, processosAberto, orcamentosAberto}); 
 };

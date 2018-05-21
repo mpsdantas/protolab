@@ -118,6 +118,20 @@
                                                     </ul>
                                                 </div>
                                             </div>
+                                            <div class="row">
+                                                <div class="col-lg-12">
+                                                    <br><br><br>
+                                                    <div id="conteudoResposta"></div>
+                                                    <form id="formResposta">
+                                                        <br><br><br>
+                                                        <div class="form-group">
+                                                            <label for="mensagemResposta"><strong>Resposta:</strong></label>
+                                                            <textarea class="form-control" id="mensagemResposta" rows="3"></textarea>
+                                                        </div>
+                                                        <button id="btnResposta" value="<%=mensagem._id%>" class="btn btn-block btn-primary">Enviar resposta</button>
+                                                    </form>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -138,5 +152,43 @@
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </body>
-
+<script>
+    function novaMensagem(tipo, msg){
+        $('#conteudoResposta').empty();
+        let html = `<div class="alert alert-${tipo} alert-dismissible fade show" role="alert">
+                        ${msg}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true"></span>
+                        </button>
+                    </div>`;
+        $('#conteudoResposta').append(html);
+    }
+    $(document).ready(function(){
+        $('#formResposta').submit(function(envent){
+            event.preventDefault();
+            let idMensagem = $('#btnResposta').val();
+            let mensagemResposta = $('#mensagemResposta').val();
+            $.ajax({
+                type: "POST",
+                url: "/dashboard/enviar-resposta-mensagem/",
+                data: {
+                    idMensagem,
+                    mensagemResposta
+                },
+                timeout: 600000,
+                success: function (data) {
+                    if(data.status){
+                        novaMensagem("success", data.msg);
+                        $('#mensagemResposta').val("");
+                    }else{
+                        novaMensagem("danger", data.msg);
+                    }
+                },
+                error: function (e) {
+                    console.log("ERROR : ", e);
+                }
+            });
+        });
+    });
+</script>
 </html>

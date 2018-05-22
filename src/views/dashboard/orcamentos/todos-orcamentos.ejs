@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="pt-br" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="Content-Language" content="pt-br" />
+    <meta name="msapplication-TileColor" content="#2d89ef">
+    <meta name="theme-color" content="#4188c9">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <link rel="icon" href="/static/img/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" type="image/x-icon" href="/static/img/favicon.ico" />
+
+    <title>Todos os orçamentos - Laboratório de Prototipagem</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,500,500i,600,600i,700,700i&amp;subset=latin-ext">
+    <script src="/static/assets/js/require.min.js"></script>
+    <script>
+        requirejs.config({
+            baseUrl: '/static/'
+        });
+    </script>
+    <!-- Dashboard Core -->
+    <link href="/static/assets/css/dashboard.css" rel="stylesheet" />
+    <script src="/static/assets/js/dashboard.js"></script>
+    <!-- c3.js Charts Plugin -->
+    <link href="/assets/plugins/charts-c3/plugin.css" rel="stylesheet" />
+    <script src="/assets/plugins/charts-c3/plugin.js"></script>
+    <!-- Google Maps Plugin -->
+    <link href="/static/assets/plugins/maps-google/plugin.css" rel="stylesheet" />
+    <script src="/static/assets/plugins/maps-google/plugin.js"></script>
+    <!-- Input Mask Plugin -->
+    <script src="/static/assets/plugins/input-mask/plugin.js"></script>
+
+</head>
+
+<body class="">
+    <div class="page">
+        <div class="page-main">
+            <div class="header py-4">
+                <div class="container">
+                    <div class="d-flex">
+                        <a class="header-brand" href="/">
+                            <img src="/static/img/logo.svg" class="header-brand-img" alt="tabler logo">
+                        </a>
+                        <div class="d-flex order-lg-2 ml-auto">
+                            <div class="dropdown">
+                                <a href="#" class="nav-link pr-0 leading-none" data-toggle="dropdown">
+                                    <span class="avatar" style="background-image: url(/get-img-perfil/<%=emailUser%>)"></span>
+                                    <span class="ml-2 d-none d-lg-block">
+                                        <span class="text-default">
+                                            <%=nome%>
+                                        </span>
+                                        <small class="text-muted d-block mt-1">
+                                            <%=tipoUsuario%>
+                                        </small>
+                                    </span>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                    <a class="dropdown-item" href="#">
+                                        <i class="dropdown-icon fe fe-user"></i> Perfil
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="/dashboard/sair">
+                                        <i class="dropdown-icon fe fe-log-out"></i> Sair
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#" class="header-toggler d-lg-none ml-3 ml-lg-0" data-toggle="collapse" data-target="#headerMenuCollapse">
+                            <span class="header-toggler-icon"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <% include ../components/navbar %>
+                <div class="my-3 my-md-5">
+                    <div class="container">
+                        <div class="page-header"></div>
+                        <div class="row row-cards row-deck">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body p-5">
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <div class="form-group">
+                                                    <label for="dataInicial" class="col-4 col-form-label">Data inicial:</label>
+                                                    <div class="col-10">
+                                                        <input class="form-control" type="date" id="dataInicial">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-4">
+                                                <div class="form-group">
+                                                    <label for="dataFinal" class="col-4 col-form-label">Data final:</label>
+                                                    <div class="col-10">
+                                                        <input class="form-control" type="date" id="dataFinal">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-4">
+                                                <div class="form-group">
+                                                    <label class="col-4 col-form-label"><br></label>
+                                                    <button id="buscarOrcamentos" class="btn btn-block btn-primary">
+                                                        Pesquisar Orçamentos
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br><br><br>
+                                        <div class="row">
+                                            <div id="conteudo"></div>
+                                            <table id="tabelaOrcamentos" class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">#</th>
+                                                        <th scope="col">Código</th>
+                                                        <th scope="col">Nome</th>
+                                                        <th scope="col">E-mail</th>
+                                                        <th scope="col">Status</th>
+                                                        <th scope="col"></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="corpoTabela">
+                                                    <%let contador = 0%>
+                                                    <%for(let i = todosOrcamentos.length-1; i>=0; i--){%>
+                                                        <%let statusFinal = "Aberto";%>
+                                                        <%if(todosOrcamentos[i].finalizado) statusFinal = "Finalizado"%>
+                                                        <tr>
+                                                            <th scope="row"><%=contador%></th>
+                                                            <td><%=todosOrcamentos[i].codigo%></td>
+                                                            <td><%=todosOrcamentos[i].nome%></td>
+                                                            <td><%=todosOrcamentos[i].email%></td>
+                                                            <td><%=statusFinal%></td>
+                                                            <td><a href="/dashboard/ver-orcamento/<%=todosOrcamentos[i]._id%>" class="btn btn-block btn-secondary">Ver detalhes</a></td>
+                                                        </tr>
+                                                        <%contador++;%>
+                                                    <%}%>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+
+        <footer class="footer">
+            <div class="container">
+                <div class="row align-items-center flex-row-reverse">
+                    <div class="col-12 col-lg-auto mt-3 mt-lg-0 text-center">
+                        Laboratório de Prototipagem. Universidade Federal do Rio Grande do Norte 2018.
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+
+    <script>
+        $(document).ready(function () {
+            $('#buscarOrcamentos').click(function(){
+                let dataInicial = $('#dataInicial').val();
+                let dataFinal = $('#dataFinal').val();
+                $.ajax({
+                    type: "GET",
+                    url: `/dashboard/obter-orcamentos-faixa-data/${dataInicial}/${dataFinal}`,
+                    timeout: 600000,
+                    success: function (data) {
+                        let orcamentos = data;
+                        if(orcamentos.length>0){
+                            let contador = 1;
+                            let html ="";
+                            for(let i = orcamentos.length-1; i>=0; i--){
+                                let statusFinal = "Aberto";
+                                if(orcamentos[i].finalizado) statusFinal = "Finalizado"
+                                html +=`<tr>
+                                            <th scope="row">${contador}</th>
+                                            <td>${orcamentos[i].codigo}</td>
+                                            <td>${orcamentos[i].nome}</td>
+                                            <td>${orcamentos[i].email}</td>
+                                            <td>${statusFinal}</td>
+                                            <td><a href="/dashboard/ver-orcamento/${orcamentos[i]._id}" class="btn btn-block btn-secondary">Ver detalhes</a></td>
+                                        </tr>`;
+                                contador++;
+                            }
+                            $('#tabelaOrcamentos').show();
+                            $('#corpoTabela').empty();
+                            $('#corpoTabela').append(html);
+                            $('#conteudo').empty();
+                        }else{
+                            $('#tabelaOrcamentos').hide();
+                            $('#conteudo').append("<center><h4>Nenhum item encontrado.</h4></center>")
+                        }
+                    },
+                    error: function (e) {
+                        console.log("ERROR : ", e);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

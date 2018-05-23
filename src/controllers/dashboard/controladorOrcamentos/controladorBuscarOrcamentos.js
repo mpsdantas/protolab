@@ -2,20 +2,20 @@ const mongoose = require('mongoose');
 const Orcamento = mongoose.model('Orcamento');
 const ObjectId = require('mongodb').ObjectID;
 const matchSorter = require('match-sorter');
-/*
-exports.buscarProcesso = async (application, req, res) =>{
-    const buscaTodosProcessos = await Processo.find({});
-    const processosSelecionados = matchSorter(buscaTodosProcessos, req.params.busca, {keys: ['emailSolicitante', 'codigo']});
-    return res.status(200).json({processosSelecionados});
+
+exports.buscarOrcamento = async (application, req, res) =>{
+    const buscaTodosOrcamento = await Orcamento.find({});
+    const orcamentosSelecionados = matchSorter(buscaTodosOrcamento, req.params.busca, {keys: ['email', 'codigo']});
+    return res.status(200).json({orcamentosSelecionados});
 };
 
-exports.viewBuscarProcessos = (application, req, res) => {
+exports.viewBuscarOrcamentos = (application, req, res) => {
     let nome = req.session.nome;
     let emailUser = req.session.email;
     let tipoUsuario = req.session.tipoUsuario;
-    res.render('dashboard/processos/buscar-processo',{nome, emailUser, tipoUsuario});
+    res.render('dashboard/orcamentos/buscar-orcamento',{nome, emailUser, tipoUsuario});
 };
-*/
+
 exports.viewTodosOsOrcamentos = async (application, req, res) => {
     const todosOrcamentos = await Orcamento.find({});
     let nome = req.session.nome;

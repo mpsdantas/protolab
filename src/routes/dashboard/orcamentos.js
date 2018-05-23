@@ -16,6 +16,13 @@ module.exports = (application) => {
     application.get('/dashboard/orcamentos-pausados', methods.protectRoute, (req, res) => {
         controllerDashboard.buscarOrcamentoPausado(application, req, res);
     });
+    application.get('/dashboard/buscar-orcamentos', methods.protectRoute, (req, res) => {
+        controllerDashboard.viewBuscarOrcamentos(application, req, res);
+    });
+    application.get('/dashboard/obter-orcamentos/:busca', methods.protectRoute, (req, res) => {
+        controllerDashboard.buscarOrcamento(application, req, res);
+    });
+    
     application.post('/dashboard/realizar-atualizacao-status-orcamento/', methods.protectRoute, (req, res) => {
         controllerDashboard.realizarAtualizacaoStatusOrcamento(application, req, res);
     });

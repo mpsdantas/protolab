@@ -39,7 +39,8 @@ exports.criarProcesso = async (req, res) => {
             data: new Date()
         }
     ];
-    req.body.urlArquivo = `./src/uploads/processos/${req.body.codigo}/${req.body.codigo}${methods.getExt(req.files.arquivo)}`;
+    /*req.body.urlArquivo = `./src/uploads/processos/${req.body.codigo}/${req.body.codigo}${methods.getExt(req.files.arquivo)}`;*/
+    req.body.urlArquivo = `./src/uploads/processos/${req.body.codigo}/${req.files.arquivo.name}`;
 
     /* Movendo arquivo enviado para a pasta dos processos. */
     methods.createDir(`./src/uploads/processos/${req.body.codigo}`, (statusDir, erroDir) => {

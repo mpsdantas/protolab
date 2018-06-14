@@ -226,7 +226,9 @@
                                                             <strong>Arquivo: </strong>
                                                         </td>
                                                         <td style="text-align: left">
-                                                            <a href="/dashboard/baixar-processo/<%= buscaProcesso._id%>" class="btn btn-secondary btn-block">Baixar arquivo</a>
+                                                            <%let nomeArquivo = buscaProcesso.urlArquivo%>
+                                                            <%nomeArquivo = nomeArquivo.replace(`./src/uploads/processos/${buscaProcesso.codigo}/`,"")%>
+                                                            <a href="/dashboard/baixar-processo/<%=buscaProcesso._id%>" class="btn btn-secondary btn-block"><%=nomeArquivo%></a>
                                                         </td>
                                                     </tr>
                                                     <tr style="text-align: left">

@@ -168,6 +168,7 @@
                                                     <th>Status</th>
                                                     <th>Data de envio</th>
                                                     <th></th>
+                                                    <th></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -212,8 +213,13 @@
                                                             <%=processosAberto[i].dataAbertura.toLocaleString()%>
                                                         </td>
                                                         <td class="text-right">
-                                                            <button class="verProcesso btn btn-secondary btn-sm" value="<%=processosAberto[i]._id%>">Ver processo</button>
+                                                            <%let nomeArquivo = processosAberto[i].urlArquivo%>
+                                                            <%nomeArquivo = nomeArquivo.replace(`./src/uploads/processos/${processosAberto[i].codigo}/`,"")%>
+                                                            <a href="/dashboard/baixar-processo/<%=processosAberto[i]._id%>" class="btn btn-secondary btn-sm"><%=nomeArquivo%></a>
                                                         </td>   
+                                                        <td>
+                                                            <button class="verProcesso btn btn-primary btn-sm" value="<%=processosAberto[i]._id%>">Ver processo</button>
+                                                        </td>
                                                     </tr>
                                                 <%}%>
                                             </tbody>

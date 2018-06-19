@@ -158,7 +158,7 @@
                                 </div>
                                 <%if(processosAberto.length>0){%>
                                     <div class="table-responsive">
-                                        <table class="table card-table table-vcenter text-nowrap">
+                                        <table class="table card-table table-vcenter">
                                             <thead>
                                                 <tr style="text-align: center">
                                                     <th>Código</th>
@@ -172,7 +172,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <%for(let i=processosAberto.length-1; i>=0; i--){%>
+                                                <%for(let i=0; i<processosAberto.length; i++){%>
                                                     <%let cor=""%>
                                                     <%let status = processosAberto[i].processamento[processosAberto[i].processamento.length-1].status%>
                                                     <%if (status === "Enviado") {%>
@@ -255,7 +255,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <%for(let i=orcamentosAberto.length-1; i>=0; i--){%>
+                                                    <%for(let i=0; i<orcamentosAberto.length; i++){%>
                                                         <%let cor=""%>
                                                         <%let status = orcamentosAberto[i].processamento[orcamentosAberto[i].processamento.length-1].status%>
                                                         <%if (status === "Enviado") {%>

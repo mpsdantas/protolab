@@ -1,11 +1,16 @@
+const env = require('dotenv');
 const mongoose = require('mongoose');
 const Orcamento = mongoose.model('Orcamento');
 const errorControllerOrcamentos = require('./errorControllerOrcamentos');
 const errorFileController = require('../processosController/errorsControllerProcessos/getErrorsFile');
 const methods = require('../methods');
+const nodemailer = require('nodemailer');
+env.config({ path: '../../../variables.env' });
 exports.criarOrcamento = (application, req, res) => {
     // Declaração de variaveis.
     let code;
+    const emailLab = process.env.EMAIL;
+    const senhaLab = process.env.SENHA;
 
     const erros = errorControllerOrcamentos.verificarErrosForm(application, req, res);
     if (erros) return res.status(200).json({ erroForm: true, erro: erros });
@@ -44,6 +49,24 @@ exports.criarOrcamento = (application, req, res) => {
             const novoOrcamento = new Orcamento(req.body);
             novoOrcamento.save((err, data) => {
                 if (err) return res.status(200).json({ status: false, msg: erro });
+                const assunto = `Abertura de orçamento ${req.body.codigo} no protolab`;
+                const mensagem = `<p>${req.body.solicitante} você abriu um orçamento no protolab, para ver o andamento dele use o seguinte código na aba de buscas: ${req.body.codigo}</p>`;
+                const transporte = nodemailer.createTransport({
+                        service: 'Gmail',
+                        auth: {
+                            user: emailLab,
+                            pass: senhaLab
+                        }
+                });
+                const enviarEmail = {
+                    from: emailLab,
+                    to: req.body.emailSolicitante, // Quem receberá
+                    subject: assunto,  // Um assunto bacana :-)
+                    html: mensagem // O conteúdo do e-mail
+                };
+                transporte.sendMail(enviarEmail, function (err, info) {
+                    if (err) throw err;
+                });
                 return res.status(200).json({ status: true, codigo: req.body.codigo, email: req.body.email});
             });
         });

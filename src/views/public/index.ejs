@@ -267,6 +267,7 @@
                 let urlGetProcesso = `buscar-processo/${codigo}`;
                 let urlGetOrcamento = `buscar-orcamento/${codigo}`;
                 requestData(urlGetProcesso, urlGetOrcamento, function (dadoBusca) {
+                   
                     if (!dadoBusca.tipo) {
                         nadaEncontrado();
                         return;
@@ -274,13 +275,20 @@
                     $('#pesquisa').hide();
                     let objetoRecebido;
                     if (dadoBusca.tipo === "Orcamento") {
+                        let codigo = dadoBusca.buscaOrcamento.objetoBusca.codigo;
+                        let nomeArquivo = dadoBusca.buscaOrcamento.objetoBusca.urlArquivo;
+                        nomeArquivo = nomeArquivo.replace(`./src/uploads/orcamentos/${dadoBusca.buscaOrcamento.objetoBusca.codigo}/`,"")
                         objetoRecebido = dadoBusca.buscaOrcamento.objetoBusca.processamento;
                         $('#tituloCard').empty();
-                        $('#tituloCard').append('Detalhes do orçamento');
+                        $('#tituloCard').append('Detalhes do orçamento '+ codigo +', arquivo: '+nomeArquivo);
                     } else if (dadoBusca.tipo === "Processo") {
+                        let codigo = dadoBusca.buscaProcesso.objetoBusca.codigo;
+                        let nomeArquivo = dadoBusca.buscaProcesso.objetoBusca.urlArquivo;
+                        nomeArquivo = nomeArquivo.replace(`./src/uploads/processos/${dadoBusca.buscaProcesso.objetoBusca.codigo}/`,"")
+                        console.log(nomeArquivo)
                         objetoRecebido = dadoBusca.buscaProcesso.objetoBusca.processamento;
                         $('#tituloCard').empty();
-                        $('#tituloCard').append('Detalhes do processo');
+                        $('#tituloCard').append('Detalhes do processo ' + codigo +', arquivo: '+nomeArquivo);
                     }
                     let html = "";
                     for (let i = objetoRecebido.length-1; i >= 0; i--) {

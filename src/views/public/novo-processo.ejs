@@ -81,7 +81,8 @@
                                                 </li>
                                                 <li class="nav-item">
                                                     <a href="/" class="nav-link">
-                                                        <i class="fa fa-backward"></i></a>
+                                                        <i class="fa fa-backward"></i>
+                                                    </a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -99,6 +100,30 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-12">
+                            <div id="myModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog">
+                                <div class="modal-dialog modal-lg" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Termo de abertura de processo</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true"></span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>
+                                                <ol style="text-align: justify;">
+                                                    <li> O prazo de conclusão do processo é de <strong>pelo menos 7 dias úteis</strong> após a entrega do material.</li>
+                                                    <li> As máquinas de prototipagem estão passíveis a erros e poderá haver perda de material que não será reposto pelo laboratório.</strong></li>
+                                                    <li> É de total responsábilidade do usuário o acompanhamento do seu processo a partir do site do PROTOLAB.</li>
+                                                    <li> A solicitação de serviço pode ser cancelada a qualquer momento sob julgamento dos bolsistas.</li>
+                                                    <li> Um serviço pode ser cancelado mediante esclarecimento ao proponente.</li>
+                                                    <li> O laboratório se reserva a possibilidade de negar determinado serviço mediante análise técnica que justifique a impossibilidade da sua execução.</li>
+                                                </ol>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <form id="formProcesso" method="post" action="/novo-processo" enctype="multipart/form-data" class="card">
                                 <div class="card-header">
                                     <h3 id="textoCabecalho" class="card-title">Formulário para criação de novo processo</h3>
@@ -106,7 +131,7 @@
                                 <div class="card-body">
                                     <div id="gifLoad" class="col-lg-8 offset-lg-2">
                                         <center>
-                                            <img class="img img-responsive" src="static/img/load.gif"/>
+                                            <img class="img img-responsive" src="static/img/load.gif" />
                                         </center>
                                     </div>
                                     <div id="formularioDados" class="col-lg-8 offset-lg-2">
@@ -321,15 +346,15 @@
             for (let i = 0; i < erros.length; i++) {
                 msg += `${erros[i].msg}<br>`;
             }
-            let showMsg =   `<div class="alert alert-danger alert-dismissible fade show" role="alert">
+            let showMsg = `<div class="alert alert-danger alert-dismissible fade show" role="alert">
                                 <center>${msg}</center>
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
                             </div>`;
             $('#erros').append(showMsg);
         }
-        function showErrosFile(erro){
+        function showErrosFile(erro) {
             $('#erros').empty();
-            let showMsg =   `<div class="alert alert-danger alert-dismissible fade show" role="alert">
+            let showMsg = `<div class="alert alert-danger alert-dismissible fade show" role="alert">
                                 <center>${erro.msg}</center>
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
                             </div>`;
@@ -442,7 +467,7 @@
                 $('#labelAviso').empty();
             }
         }
-        function reexibirForm(vinculo){
+        function reexibirForm(vinculo) {
             if (vinculo === "Discente") {
                 exibirDiscente();
             } else if (vinculo === "Docente") {
@@ -455,6 +480,9 @@
         }
         $(document).ready(function () {
             ocultarAll();
+            $(window).on('load', function () {
+                $('#myModal').modal('show');
+            });
             $('#tipoProcesso').on('change', function () {
                 mudancaTipoProcesso(this.value);
             });
@@ -513,17 +541,17 @@
                     cache: false,
                     timeout: 600000,
                     success: function (data) {
-                        if (data.erroForm){
+                        if (data.erroForm) {
                             reexibirForm($('#tipoVinculo').val());
                             mudancaTipoProcesso($('#tipoProcesso').val());
                             $('#gifLoad').hide();
                             showErrosForm(data);
-                        }else if(data.statusErroFile){
+                        } else if (data.statusErroFile) {
                             reexibirForm($('#tipoVinculo').val());
                             mudancaTipoProcesso($('#tipoProcesso').val());
                             $('#gifLoad').hide();
                             showErrosFile(data);
-                        }else if(data.status){
+                        } else if (data.status) {
                             ocultarAll();
                             $('#divVinculo').hide();
                             $('#textoCabecalho').empty();

@@ -70,9 +70,10 @@ exports.criarProcesso = async (req, res) => {
                     subject: assunto,  // Um assunto bacana :-)
                     html: mensagem // O conteúdo do e-mail
                 };
+                /*
                 transporte.sendMail(enviarEmail, function (err, info) {
                     if (err) throw err;
-                });
+                });*/
                 return res.status(200).json({ status: true, codigo: req.body.codigo, email: req.body.emailSolicitante });
             });
         });

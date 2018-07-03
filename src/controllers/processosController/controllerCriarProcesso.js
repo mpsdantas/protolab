@@ -21,7 +21,7 @@ exports.criarProcesso = async (req, res) => {
 
     if (erros) return res.status(200).json({ erroForm: true, erros: erros });
 
-    const erroFiles = errorsController.getErrorsFile(req);
+    const erroFiles = await errorsController.getErrorsFile(req);
     if (erroFiles.statusErroFile) return res.status(200).json(erroFiles);
 
     if (req.body.tipoServico === "impressao3d") {

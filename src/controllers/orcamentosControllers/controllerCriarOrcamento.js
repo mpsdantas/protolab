@@ -6,7 +6,7 @@ const errorFileController = require('../processosController/errorsControllerProc
 const methods = require('../methods');
 const nodemailer = require('nodemailer');
 env.config({ path: '../../../variables.env' });
-exports.criarOrcamento = (application, req, res) => {
+exports.criarOrcamento = async (application, req, res) => {
     // Declaração de variaveis.
     let code;
     const emailLab = process.env.EMAIL;
@@ -15,7 +15,7 @@ exports.criarOrcamento = (application, req, res) => {
     const erros = errorControllerOrcamentos.verificarErrosForm(application, req, res);
     if (erros) return res.status(200).json({ erroForm: true, erro: erros });
 
-    const erroFiles = errorFileController.getErrorsFile(req);
+    const erroFiles = await errorFileController.getErrorsFile(req);
     if (erroFiles.statusErroFile) return res.status(200).json(erroFiles);
 
     if (req.body.tipoServico === "impressao3d") {

@@ -89,62 +89,65 @@
                                         <div class="container">
                                             <div class="row">
                                                 <div class="col-lg-12">
-                                                    <div class="table-responsive">
-                                                        
-                                                        <table class="table">
-                                                            <thead>
-                                                                <tr style="text-align: center">
-                                                                    <th scope="col">#</th>
-                                                                    <th scope="col">Codigo</th>
-                                                                    <th scope="col">Nome</th>
-                                                                    <th scope="col">Assunto</th>
-                                                                    <th scope="col">Data</th>
-                                                                    <th scope="col"></th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                
-                                                                <%for(let i= mensagensNaoLidas.length-1;i>=0;i--){%>
+                                                    <%if(mensagensNaoLidas.length>0 || mensagensLidas.length>0){%>
+                                                        <div class="table-responsive">
+                                                            <table class="table">
+                                                                <thead>
                                                                     <tr style="text-align: center">
-                                                                        <th scope="row"><i class="fa fa-envelope"></i></th>
-                                                                        <%if(!mensagensNaoLidas[i].codigo){%>
-                                                                            <td>-</td>
-                                                                        <%}else{%>
-                                                                            <td><%=mensagensNaoLidas[i].codigo%></td>
-                                                                        <%}%>
-                                                                        <td><%=mensagensNaoLidas[i].nome%></td>
-                                                                        <td><%=mensagensNaoLidas[i].assunto%></td>
-                                                                        <td><%=mensagensNaoLidas[i].data.toLocaleString()%></td>
-                                                                        <td>
-                                                                            <a  class="btn btn-sm btn-primary" href="/dashboard/vizualizar-mensagem/<%=mensagensNaoLidas[i]._id%>">
-                                                                                Visualizar
-                                                                            </a>
-                                                                        </td>
+                                                                        <th scope="col">#</th>
+                                                                        <th scope="col">Codigo</th>
+                                                                        <th scope="col">Nome</th>
+                                                                        <th scope="col">Assunto</th>
+                                                                        <th scope="col">Data</th>
+                                                                        <th scope="col"></th>
                                                                     </tr>
-                                                                <%}%>
-                                                                <%for(let i= mensagensLidas.length-1;i>=0;i--){%>
-                                                                    <tr style="text-align: center">
-                                                                        <th scope="row"><i class="fa fa-envelope-open"></i></th>
-                                                                        <%if(!mensagensLidas[i].codigo){%>
-                                                                            <td>-</td>
-                                                                        <%}else{%>
-                                                                            <td><%=mensagensLidas[i].codigo%></td>
-                                                                        <%}%>
-                                                                        <td><%=mensagensLidas[i].nome%></td>
-                                                                        <td><%=mensagensLidas[i].assunto%></td>
-                                                                        <td><%=mensagensLidas[i].data.toLocaleString()%></td>
-                                                                        <td>
-                                                                            <a  class="btn btn-sm btn-primary" href="/dashboard/vizualizar-mensagem/<%=mensagensLidas[i]._id%>">
-                                                                                Visualizar
-                                                                            </a>
-                                                                        </td>
-                                                                    </tr>
-                                                                <%}%>
-                                                                
-                                                                
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
+                                                                </thead>
+                                                                <tbody>
+                                                                    
+                                                                    <%for(let i= mensagensNaoLidas.length-1;i>=0;i--){%>
+                                                                        <tr style="text-align: center">
+                                                                            <th scope="row"><i class="fa fa-envelope"></i></th>
+                                                                            <%if(!mensagensNaoLidas[i].codigo){%>
+                                                                                <td>-</td>
+                                                                            <%}else{%>
+                                                                                <td><%=mensagensNaoLidas[i].codigo%></td>
+                                                                            <%}%>
+                                                                            <td><%=mensagensNaoLidas[i].nome%></td>
+                                                                            <td><%=mensagensNaoLidas[i].assunto%></td>
+                                                                            <td><%=mensagensNaoLidas[i].data.toLocaleString()%></td>
+                                                                            <td>
+                                                                                <a  class="btn btn-sm btn-primary" href="/dashboard/vizualizar-mensagem/<%=mensagensNaoLidas[i]._id%>">
+                                                                                    Visualizar
+                                                                                </a>
+                                                                            </td>
+                                                                        </tr>
+                                                                    <%}%>
+                                                                    <%for(let i= mensagensLidas.length-1;i>=0;i--){%>
+                                                                        <tr style="text-align: center">
+                                                                            <th scope="row"><i class="fa fa-envelope-open"></i></th>
+                                                                            <%if(!mensagensLidas[i].codigo){%>
+                                                                                <td>-</td>
+                                                                            <%}else{%>
+                                                                                <td><%=mensagensLidas[i].codigo%></td>
+                                                                            <%}%>
+                                                                            <td><%=mensagensLidas[i].nome%></td>
+                                                                            <td><%=mensagensLidas[i].assunto%></td>
+                                                                            <td><%=mensagensLidas[i].data.toLocaleString()%></td>
+                                                                            <td>
+                                                                                <a  class="btn btn-sm btn-primary" href="/dashboard/vizualizar-mensagem/<%=mensagensLidas[i]._id%>">
+                                                                                    Visualizar
+                                                                                </a>
+                                                                            </td>
+                                                                        </tr>
+                                                                    <%}%>
+                                                                    
+                                                                    
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    <%}else{%>
+                                                        <center>Não existem mensagens</center>    
+                                                    <%}%>
                                                 </div>
                                             </div>
                                         </div>

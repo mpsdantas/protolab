@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Processo = mongoose.model('Processo');
+const Orcamento = mongoose.model('Orcamento');
 const ObjectId = require('mongodb').ObjectID;
 const matchSorter = require('match-sorter');
 
@@ -22,6 +23,15 @@ exports.viewTodosOsProcessos = async (application, req, res) => {
     let emailUser = req.session.email;
     let tipoUsuario = req.session.tipoUsuario;
     res.render('dashboard/processos/todos-processos',{nome, emailUser, tipoUsuario, todosProcessos});
+};
+
+exports.buscarProcessoEdicao = async (application, req, res) => {
+    const buscaProcesso = await Processo.findOne({_id: new ObjectId(req.params.idProcesso)});
+    let nome = req.session.nome;
+    let emailUser = req.session.email;
+    let tipoUsuario = req.session.tipoUsuario;
+    res.render('dashboard/processos/editar-processo',{nome, emailUser, tipoUsuario, buscaProcesso});
+    //res.status(200).json(processoEdicao)
 };
 
 exports.buscarProcessoData = async (application, req, res) => {

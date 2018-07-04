@@ -25,4 +25,7 @@ module.exports = (application) => {
     application.get('/dashboard/obter-processos-faixa-data/:dataInicial/:dataFinal', methods.protectRoute, (req, res) => {
         controllerDashboard.buscarProcessoData(application, req, res);
     });
+    application.get('/dashboard/editar-processo/:idProcesso',methods.protectRoute, (req, res) => {
+        controllerDashboard.buscarProcessoEdicao(application, req, res);
+    });
 };

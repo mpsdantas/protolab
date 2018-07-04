@@ -220,6 +220,9 @@
                                                         <td>
                                                             <button class="verProcesso btn btn-primary btn-sm" value="<%=processosAberto[i]._id%>">Ver processo</button>
                                                         </td>
+                                                        <td>
+                                                            <button class="editarProcesso btn btn-secpmdary btn-sm" value="<%=processosAberto[i]._id%>"><span class="fe fe-edit"></span></button>
+                                                        </td>
                                                     </tr>
                                                 <%}%>
                                             </tbody>
@@ -335,6 +338,10 @@
             $('.verOrcamento').click(function(){
                 let id = this.value;
                 window.location.href = `/dashboard/ver-orcamento/${id}`
+            });
+            $('.editarProcesso').click(function(){
+                let id = this.value;
+                window.location.href = `/dashboard/editar-processo/${id}`
             });
         });
     </script>

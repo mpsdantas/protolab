@@ -16,7 +16,8 @@
     <link rel="icon" href="/static/img/favicon.ico" type="image/x-icon" />
     <link rel="shortcut icon" type="image/x-icon" href="/static/img/favicon.ico" />
 
-    <title>Processo <%=buscaProcesso.codigo%> - Laboratório de Prototipagem</title>
+    <title>Processo
+        <%=buscaProcesso.codigo%> - Laboratório de Prototipagem</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,500,500i,600,600i,700,700i&amp;subset=latin-ext">
     <script src="/static/assets/js/require.min.js"></script>
@@ -87,7 +88,7 @@
                                 <div class="card">
                                     <div class="card-header">
                                         <h3 class="card-title">Processo
-                                            <%=buscaProcesso.codigo%><button class="editarProcesso btn btn-secpmdary btn-sm" value="<%=buscaProcesso._id%>"><span class="fe fe-edit"></span></button>
+                                            <%=buscaProcesso.codigo%>
                                         </h3>
                                     </div>
                                     <div class="card-body p-5">
@@ -107,12 +108,12 @@
                                                         <td style="text-align: left">
                                                             <%if(!buscaProcesso.finalizado){%>
                                                                 O processo está em andamento
-                                                            <%}else{%>  
-                                                                O processo foi finalizado
-                                                            <%}%>  
+                                                                <%}else{%>
+                                                                    O processo foi finalizado
+                                                                    <%}%>
                                                         </td>
                                                     </tr>
-                                                    
+
                                                     <tr style="text-align: left">
                                                         <td>
                                                             <strong>Pausado: </strong>
@@ -120,9 +121,9 @@
                                                         <td style="text-align: left">
                                                             <%if(!buscaProcesso.Pausado){%>
                                                                 O processo não está pausado
-                                                            <%}else{%>  
-                                                                O processo está pausado
-                                                            <%}%>  
+                                                                <%}else{%>
+                                                                    O processo está pausado
+                                                                    <%}%>
                                                         </td>
                                                     </tr>
 
@@ -131,7 +132,7 @@
                                                             <strong>Vinculo: </strong>
                                                         </td>
                                                         <td style="text-align: left">
-                                                            <%=buscaProcesso.vinculo%>
+                                                            <input type="text" class="form-control" value="<%=buscaProcesso.vinculo%>">
                                                         </td>
                                                     </tr>
 
@@ -140,7 +141,7 @@
                                                             <strong>Solicitante: </strong>
                                                         </td>
                                                         <td style="text-align: left">
-                                                            <%=buscaProcesso.solicitante%>
+                                                            <input type="text" class="form-control" value="<%=buscaProcesso.solicitante%>">
                                                         </td>
                                                     </tr>
                                                     <tr style="text-align: left">
@@ -148,7 +149,7 @@
                                                             <strong>E-mail do solicitante: </strong>
                                                         </td>
                                                         <td style="text-align: left">
-                                                            <%=buscaProcesso.emailSolicitante%>
+                                                            <input type="text" class="form-control" value="<%=buscaProcesso.emailSolicitante%>">
                                                         </td>
                                                     </tr>
                                                     <tr style="text-align: left">
@@ -156,7 +157,7 @@
                                                             <strong>Professor responsável: </strong>
                                                         </td>
                                                         <td style="text-align: left">
-                                                            <%=buscaProcesso.profResponsavel%>
+                                                            <input type="text" class="form-control" value="<%=buscaProcesso.profResponsavel%>">
                                                         </td>
                                                     </tr>
                                                     <tr style="text-align: left">
@@ -164,7 +165,7 @@
                                                             <strong>E-mail Professor responsável: </strong>
                                                         </td>
                                                         <td style="text-align: left">
-                                                            <%=buscaProcesso.emailProfResponsavel%>
+                                                            <input type="text" class="form-control" value="<%=buscaProcesso.emailProfResponsavel%>">
                                                         </td>
                                                     </tr>
                                                     <tr style="text-align: left">
@@ -172,7 +173,7 @@
                                                             <strong>Nome Projeto: </strong>
                                                         </td>
                                                         <td style="text-align: left">
-                                                            <%=buscaProcesso.nomeProjeto%>
+                                                            <input type="text" class="form-control" value="<%=buscaProcesso.nomeProjeto%>">
                                                         </td>
                                                     </tr>
                                                     <tr style="text-align: left">
@@ -180,7 +181,7 @@
                                                             <strong>Departamento: </strong>
                                                         </td>
                                                         <td style="text-align: left">
-                                                            <%=buscaProcesso.departamento%>
+                                                            <input type="text" class="form-control" value="<%=buscaProcesso.departamento%>">
                                                         </td>
                                                     </tr>
                                                     <tr style="text-align: left">
@@ -189,7 +190,7 @@
                                                         </td>
                                                         <td style="text-align: left">
                                                             <%if(buscaProcesso.tipoServico==="impressao3d"){%>
-                                                                    Impressão 3D
+                                                                Impressão 3D
                                                             <%}else{%>
                                                                 Impressão de PCB
                                                             <%}%>
@@ -200,7 +201,7 @@
                                                             <strong>Quantidade: </strong>
                                                         </td>
                                                         <td style="text-align: left">
-                                                            <%= buscaProcesso.quantidade %>
+                                                            <input type="text" class="form-control" value="<%= buscaProcesso.quantidade %>">
                                                         </td>
                                                     </tr>
                                                     <%if(!(buscaProcesso.tipoServico==="impressao3d")){%>
@@ -212,73 +213,66 @@
                                                                 <%= buscaProcesso.configPcb %>
                                                             </td>
                                                         </tr>
-                                                    <%}%>
-                                                    <tr style="text-align: left">
-                                                        <td>
-                                                            <strong>Codigo: </strong>
-                                                        </td>
-                                                        <td style="text-align: left">
-                                                            <%= buscaProcesso.codigo %>
-                                                        </td>
-                                                    </tr>
-                                                    <tr style="text-align: left">
-                                                        <td>
-                                                            <strong>Arquivo: </strong>
-                                                        </td>
-                                                        <td style="text-align: left">
-                                                            <%let nomeArquivo = buscaProcesso.urlArquivo%>
-                                                            <%nomeArquivo = nomeArquivo.replace(`./src/uploads/processos/${buscaProcesso.codigo}/`,"")%>
-                                                            <a href="/dashboard/baixar-processo/<%=buscaProcesso._id%>" class="btn btn-secondary btn-block"><%=nomeArquivo%></a>
-                                                        </td>
-                                                    </tr>
-                                                    <tr style="text-align: left">
-                                                        <td>
-                                                            <strong>Data abertura: </strong>
-                                                        </td>
-                                                        <td style="text-align: left">
-                                                            <%= buscaProcesso.dataAbertura.toLocaleString()%>
-                                                        </td>
-                                                    </tr>
-                                                    <%if(buscaProcesso.finalizado){%>
-                                                        <tr style="text-align: left">
-                                                            <td>
-                                                                <strong>Data finalização: </strong>
-                                                            </td>
-                                                            <td style="text-align: left">
-                                                                <%=buscaProcesso.dataFechamento.toLocaleString()%>
-                                                            </td>
-                                                        </tr>
-                                                    <%}%>
-                                                    <%let cor = ""%>
-                                                    <%let mensagem=""%>
-                                                    <%let status=""%>
-                                                    <%if(!buscaProcesso.finalizado){%>
-                                                    <tr style="text-align: left">
-                                                        <td>
-                                                            <a href="/dashboard/realizar-atualizacao-status-processo/<%=buscaProcesso._id%>" class="btn btn-block btn-primary">Atualizar status do processo</a>
-                                                        </td>
-                                                        <td style="text-align: left">
-                                                            
-                                                            <%if(buscaProcesso.pausado){%>
-                                                                <%cor = "btn-success"%>
-                                                                <%mensagem="Despausar"%>
-                                                                <%status="Despausar"%>
-                                                            <%}else{%>
-                                                                <%cor = "btn-danger"%>
-                                                                <%mensagem="Pausar"%>
-                                                                <%status="Pausado"%>
-                                                            <%}%>
-                                                            <button value="<%=buscaProcesso._id%>" class="btn btn-block <%=cor%> pausarProcesso">
-                                                               <%=mensagem%> 
-                                                            </button>
-                                                        </td>
-                                                    </tr>
-                                                    <%}%>
+                                                        <%}%>
+                                                            <tr style="text-align: left">
+                                                                <td>
+                                                                    <strong>Codigo: </strong>
+                                                                </td>
+                                                                <td style="text-align: left">
+                                                                    <%= buscaProcesso.codigo %>
+                                                                </td>
+                                                            </tr>
+                                                            <tr style="text-align: left">
+                                                                <td>
+                                                                    <strong>Arquivo: </strong>
+                                                                </td>
+                                                                <td style="text-align: left">
+                                                                    <%let nomeArquivo = buscaProcesso.urlArquivo%>
+                                                                        <%nomeArquivo = nomeArquivo.replace(`./src/uploads/processos/${buscaProcesso.codigo}/`,"")%>
+                                                                            <a href="/dashboard/baixar-processo/<%=buscaProcesso._id%>" class="btn btn-secondary btn-block">
+                                                                                <%=nomeArquivo%>
+                                                                            </a>
+                                                                </td>
+                                                            </tr>
+                                                            <tr style="text-align: left">
+                                                                <td>
+                                                                    <strong>Data abertura: </strong>
+                                                                </td>
+                                                                <td style="text-align: left">
+                                                                    <%= buscaProcesso.dataAbertura.toLocaleString()%>
+                                                                </td>
+                                                            </tr>
+                                                            <%if(buscaProcesso.finalizado){%>
+                                                                <tr style="text-align: left">
+                                                                    <td>
+                                                                        <strong>Data finalização: </strong>
+                                                                    </td>
+                                                                    <td style="text-align: left">
+                                                                        <%=buscaProcesso.dataFechamento.toLocaleString()%>
+                                                                    </td>
+                                                                </tr>
+                                                                <%}%>
+                                                                    <%let cor = ""%>
+                                                                        <%let mensagem=""%>
+                                                                            <%let status=""%>
+                                                                                
                                                 </tbody>
+                                                
                                             </table>
+                                            
                                         </div>
+                                        
                                     </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-lg-8 offset-lg-2">
+                                            <button class="btn btn-success">Salvar alterações</button>
+                                        </div>
+
+                                    </div>
+                                    <br><br><br>
                                 </div>
+                                
                             </div>
                         </div>
                     </div>
@@ -300,7 +294,7 @@
 
     <script>
         $(document).ready(function () {
-            $('.pausarProcesso').click(function(){
+            $('.pausarProcesso').click(function () {
                 let status = `<%=status%>`;
                 let id = this.value;
                 $.ajax({
@@ -313,7 +307,7 @@
                     timeout: 600000,
                     success: function (data) {
                         if (data.success) {
-                           location.reload();
+                            location.reload();
                         }
                     },
                     error: function (e) {
@@ -322,11 +316,6 @@
                 });
 
 
-            });
-            $('.editarProcesso').click(function(){
-                let id = this.value;
-                console.log(id);
-                window.location.href = `/dashboard/editar-processo/${id}`
             });
         });
     </script>

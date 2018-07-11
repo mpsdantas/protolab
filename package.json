@@ -19,6 +19,7 @@
   "homepage": "https://github.com/mpsdantas/boilerplate-node#readme",
   "dependencies": {
     "body-parser": "1.18.2",
+    "connect-mongodb-session": "2.0.3",
     "consign": "0.1.6",
     "dotenv": "5.0.1",
     "ejs": "2.5.7",
@@ -31,7 +32,8 @@
     "match-sorter": "^2.2.3",
     "mkdirp": "0.5.1",
     "mongoose": "5.0.16",
-    "nodemailer": "4.6.7"
+    "nodemailer": "4.6.7",
+    "pm2": "^3.0.0"
   },
   "devDependencies": {
     "cz-ptbr-changelog": "^1.0.1"

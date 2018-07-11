@@ -25,6 +25,8 @@ const fileUpload = require('express-fileupload');
 /* iniciar o objeto do express */
 const app = express();
 
+const MongoDBStore = require('connect-mongodb-session')(expressSession);
+
 /* setar as variáveis 'view engine' e 'views' do express */
 app.set('view engine', 'ejs');
 app.set('views', './src/views');
@@ -49,11 +51,28 @@ app.use(expressValidator());
 //  Extraindo variaveis de ambiente.
 env.config({ path: 'variables.env' });
 
+const store = new MongoDBStore({
+    uri: process.env.DATABASE,
+    collection: 'sessions'
+});
+
+store.on('connected', function() {
+    store.client; // The underlying MongoClient object from the MongoDB driver
+});
+
+// Catch errors
+store.on('error', function(error) {
+    assert.ifError(error);
+    assert.ok(false);
+});
+
 /* Configurar o middleware express-session */
 app.use(expressSession({
     secret: '80d499cac5e64c17620654587ec37dc5',
-    resave: false,
-    saveUninitialized: false
+    resave: true,
+    saveUninitialized: true,
+    cookie: {expires: new Date(253402300000000)},
+    store: store
 }))
 
 /* efetua o autoload das rotas, dos models e dos controllers para o objeto app */

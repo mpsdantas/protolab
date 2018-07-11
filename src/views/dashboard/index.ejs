@@ -165,8 +165,9 @@
                                                     <th>Solicitante</th>
                                                     <th>Vinculo</th>
                                                     <th>Tipo serviço</th>
+                                                    <th>Qntd</th>
                                                     <th>Status</th>
-                                                    <th>Data de envio</th>
+                                                    <th>Envio</th>
                                                     <th></th>
                                                     <th></th>
                                                 </tr>
@@ -206,11 +207,14 @@
                                                             <%}%>
                                                         </td>
                                                         <td>
+                                                            <%=processosAberto[i].quantidade%>
+                                                        </td>
+                                                        <td>
                                                             <span class="status-icon <%=cor%>"></span>
                                                             <%=processosAberto[i].processamento[processosAberto[i].processamento.length-1].status%>
                                                         </td>
                                                         <td>
-                                                            <%=processosAberto[i].dataAbertura.toLocaleString()%>
+                                                            <%=processosAberto[i].dataAbertura.toLocaleDateString()%>
                                                         </td>
                                                         <td class="text-right">
                                                             <%let nomeArquivo = processosAberto[i].urlArquivo%>

@@ -164,7 +164,7 @@
                                                     <th>Código</th>
                                                     <th>Solicitante</th>
                                                     <th>Vinculo</th>
-                                                    <th>Tipo serviço</th>
+                                                    <th>Configurações</th>
                                                     <th>Qntd</th>
                                                     <th>Status</th>
                                                     <th>Envio</th>
@@ -200,7 +200,7 @@
                                                         </td>
                                                         <td>
                                                             <%if(processosAberto[i].tipoServico==="impressao3d"){%>
-                                                                Impressão 3D
+                                                                100% <strong>(Automático)</strong>
                                                             <%}else{%>
                                                                 <%=processosAberto[i].configPcb%>
                                                             <%}%>

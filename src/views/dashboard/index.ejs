@@ -157,7 +157,7 @@
                                     <h3 class="card-title">Processos em aberto</h3>
                                 </div>
                                 <%if(processosAberto.length>0){%>
-                                    <div class="table-responsive">
+                                    <div class="table-responsive table-hover">
                                         <table class="table card-table table-vcenter">
                                             <thead>
                                                 <tr style="text-align: center">
@@ -168,8 +168,7 @@
                                                     <th>Qntd</th>
                                                     <th>Status</th>
                                                     <th>Envio</th>
-                                                    <th></th>
-                                                    <th></th>
+                                                    <th>Baixar arquivo</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -189,7 +188,7 @@
                                                     <%} else if (status === "Cancelado") {%>
                                                         <%cor = "bg-danger"%>
                                                     <%}%>
-                                                    <tr style="text-align: center">
+                                                    <tr  style="text-align: center" onclick="window.location='/dashboard/ver-processo/<%=processosAberto[i]._id%>';">
                                                         <td>
                                                             <span class="text-muted"><%=processosAberto[i].codigo%></span>
                                                         </td>
@@ -203,7 +202,7 @@
                                                             <%if(processosAberto[i].tipoServico==="impressao3d"){%>
                                                                 Impressão 3D
                                                             <%}else{%>
-                                                                Placa de circuito impresso
+                                                                <%=processosAberto[i].configPcb%>
                                                             <%}%>
                                                         </td>
                                                         <td>
@@ -221,12 +220,6 @@
                                                             <%nomeArquivo = nomeArquivo.replace(`./src/uploads/processos/${processosAberto[i].codigo}/`,"")%>
                                                             <a href="/dashboard/baixar-processo/<%=processosAberto[i]._id%>" class="btn btn-secondary btn-sm"><%=nomeArquivo%></a>
                                                         </td>   
-                                                        <td>
-                                                            <button class="verProcesso btn btn-primary btn-sm" value="<%=processosAberto[i]._id%>">Ver processo</button>
-                                                        </td>
-                                                        <td>
-                                                            <button class="editarProcesso btn btn-secpmdary btn-sm" value="<%=processosAberto[i]._id%>"><span class="fe fe-edit"></span></button>
-                                                        </td>
                                                     </tr>
                                                 <%}%>
                                             </tbody>

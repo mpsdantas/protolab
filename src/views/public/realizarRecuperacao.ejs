@@ -16,7 +16,7 @@
     <link rel="icon" href="static/img/favicon.ico" type="image/x-icon" />
     <link rel="shortcut icon" type="image/x-icon" href="static/img/favicon.ico" />
 
-    <title>Login - Laboratório de Prototipagem</title>
+    <title>Recuperar Senha - Laboratório de Prototipagem</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,500,500i,600,600i,700,700i&amp;subset=latin-ext">
     <script src="static/assets/js/require.min.js"></script>
@@ -78,7 +78,8 @@
                                                 </li>
                                                 <li class="nav-item">
                                                     <a href="/" class="nav-link">
-                                                        <i class="fa fa-backward"></i></a>
+                                                        <i class="fa fa-backward"></i>
+                                                    </a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -96,27 +97,22 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-6 offset-lg-3">
-                            <form id="formLogin" class="card">
+                            <form class="card" id="formLogin">
                                 <div class="card-body p-6">
                                     <div id="erros"></div>
-                                    <div class="card-title">Entre com a sua conta</div>
+                                    <div class="card-title">Recuperação de senha</div>
+                                    <p class="text-muted">Digite a sua nova senha no formulário abaixo:</p>
                                     <div class="form-group">
-                                        <label class="form-label">E-mail</label>
-                                        <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Seu e-mail" required>
+                                        <label class="form-label" for="senha">Senha:</label>
+                                        <input type="email" class="form-control" id="senha" aria-describedby="emailHelp" placeholder="Enter email">
                                     </div>
                                     <div class="form-group">
-                                        <label class="form-label">
-                                            Senha
-                                            <a href="/recuperar-senha" class="float-right small">Esqueceu sua senha?</a>
-                                        </label>
-                                        <input type="password" class="form-control" id="senha" placeholder="Sua senha" required>
+                                        <label class="form-label" for="repetirSenh">Repita a senha:</label>
+                                        <input type="email" class="form-control" id="repetirSenh" aria-describedby="emailHelp" placeholder="Enter email">
                                     </div>
                                     <div class="form-footer">
-                                        <button type="submit" class="btn btn-primary btn-block">Entrar</button>
+                                        <button type="submit" class="btn btn-primary btn-block">Mudar senha</button>
                                     </div>
-                                    <br>
-                                    <a href="/criar-nova-conta" class="float-right small">Criar uma nova conta</a>
-                                    
                                 </div>
                             </form>
                         </div>
@@ -157,28 +153,34 @@
                             </div>`;
             $('#erros').append(showMsg);
         }
+        function showSucesso(erro) {
+            $('#erros').empty();
+            let showMsg = `<div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <center>${erro}</center>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
+                            </div>`;
+            $('#erros').append(showMsg);
+        }
         $(document).ready(function () {
-            $('#formLogin').submit(function(event){
+            $('#formLogin').submit(function (event) {
                 event.preventDefault();
-                let email = $('#email').val();
-                let senha = $('#senha').val();
-                console.log(email);
-                console.log(senha);
+                let email = $('#emailRecuperar').val();
+                let token = `<%=token%>`;
                 $.ajax({
                     type: "POST",
-                    url: "/login",
+                    url: "/realizar-recuperacao",
                     data: {
-                        email,
-                        senha
+                        token
                     },
                     timeout: 600000,
                     success: function (data) {
-                        if(data.errosForm){
-                            showErrosForm(data.erros);
-                        }else if(!data.status){
+                        if (data.errosForm) {
+                            showErrosForm(data.erros)
+                        } else if (data.errosRecover) {
                             showErrosLogin(data.msg)
-                        }else{
-                            window.location.href = "/dashboard";
+                        } else {
+                            $('#emailRecuperar').val('');
+                            showSucesso('Um e-mail de recuperação foi enviado para ' + email);
                         }
                     },
                     error: function (e) {
@@ -186,7 +188,7 @@
                     }
                 });
             });
-            
+
         });
     </script>
 </body>

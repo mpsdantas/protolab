@@ -10,7 +10,8 @@ const Usuario = new Schema({
     ativado: {
         type: Boolean,
         default: false
-    }
+    },
+    tokenRecuperacao: String
 });
 
 mongoose.model('Usuario', Usuario);

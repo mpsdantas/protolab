@@ -27,6 +27,8 @@ const app = express();
 
 const MongoDBStore = require('connect-mongodb-session')(expressSession);
 
+const compression = require('compression');
+
 /* setar as variáveis 'view engine' e 'views' do express */
 app.set('view engine', 'ejs');
 app.set('views', './src/views');
@@ -34,7 +36,7 @@ app.set('views', './src/views');
 /* configurar o middleware express.static */
 app.use(express.static(__dirname + '/../src/public'));
 app.use('/static', express.static(__dirname + '/../src/public'));
-
+app.use(compression());
 /*Configurando o fileUpload*/
 app.use(fileUpload({
     limits: { fileSize: 15 * 1024 * 1024 },

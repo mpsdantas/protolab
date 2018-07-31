@@ -36,3 +36,8 @@ exports.enviarRecuperarSenha = async (application, req, res) => {
         return res.status(200).json({ url: urlRecuperacao });
     });  
 };
+exports.mudarSenha = async (application, req, res) =>{
+    const findUser = await Usuario.findOne({ tokenRecuperacao: req.body.token });
+    if(!findUser) return res.status(200).json({status:false, msg:'Token inválido.'});
+     
+}

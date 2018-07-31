@@ -11,7 +11,7 @@ exports.getErrorsFile = async (req) =>{
         let extensoesValidas3D = await Extensao.find({tipo:'Impressão 3D'});
         let nenhumaExtensaoValida = false;
         for(let i=0; i<extensoesValidas3D.length; i++){
-            if(extensoesValidas3D[i].ext==path.extname(sampleFile.name)){
+            if(extensoesValidas3D[i].ext==path.extname(sampleFile.name).toLowerCase()){
                 nenhumaExtensaoValida = true;
                 break;
             } 
@@ -22,7 +22,7 @@ exports.getErrorsFile = async (req) =>{
         let extensoesValidasPCB = await Extensao.find({tipo:'PCB'});
         let nenhumaExtensaoValida = false;
         for(let i=0; i<extensoesValidasPCB.length; i++){
-            if(extensoesValidasPCB[i].ext===path.extname(sampleFile.name)){
+            if(extensoesValidasPCB[i].ext===path.extname(sampleFile.name).toLowerCase()){
                 nenhumaExtensaoValida = true;
                 break; 
             } 

@@ -47,6 +47,7 @@ exports.realizarAtualizacaoStatus = async (application, req, res) => {
 
     transporte.sendMail(enviarEmail, function (err, info) {
         if (err) throw err;
+        return res.status(200).json({ success: true });
     });
-    return res.status(200).json({ success: true });
+    
 };

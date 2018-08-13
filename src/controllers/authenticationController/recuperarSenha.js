@@ -39,5 +39,9 @@ exports.enviarRecuperarSenha = async (application, req, res) => {
 exports.mudarSenha = async (application, req, res) =>{
     const findUser = await Usuario.findOne({ tokenRecuperacao: req.body.token });
     if(!findUser) return res.status(200).json({status:false, msg:'Token inválido.'});
-     
+    const erros = errosUsuarioController.getErrosRestoreSenha(req);
+    if (erros) return res.status(200).json({ errosForm: true, erros: erros });
+    req.body.senha = crypto.createHash("md5").update(req.body.senha).digest("hex");
+    await Usuario.update({ email: findUser.email }, { $set: { senha:req.body.senha}});
+    return res.status(200).json({status:true, msg:"Senha alterada com sucesso!"});
 }

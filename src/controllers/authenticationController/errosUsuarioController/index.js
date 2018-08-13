@@ -1,10 +1,12 @@
 const getErrosUsuarios = require('./getErrosUsuarios');
 const getErrosFile = require('./getErrosFile');
 const getErrosLogin = require('./getErrosLogin');
-const getErrosRecuperarSenha = require('./getErrosRecuperarSenha');
+const getErrosRestoreSenha = require('./getErrosRestoreSenha');
+const getErrosMudarSenha = require('./getErrosMudarSenha');
 module.exports = {
     ...getErrosUsuarios,
     ...getErrosFile,
     ...getErrosLogin,
-    ...getErrosRecuperarSenha
+    ...getErrosRestoreSenha,
+    ...getErrosMudarSenha
 };

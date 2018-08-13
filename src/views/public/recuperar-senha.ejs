@@ -107,7 +107,7 @@
                                         <input type="email" class="form-control" id="emailRecuperar" aria-describedby="emailHelp" placeholder="Enter email">
                                     </div>
                                     <div class="form-footer">
-                                        <button type="submit" class="btn btn-primary btn-block">Enviar e-mail de recuperação</button>
+                                        <button id="botaoRecuperar" type="submit" class="btn btn-primary btn-block" >Enviar e-mail de recuperação</button>
                                     </div>
                                 </div>
                             </form>
@@ -161,6 +161,7 @@
             $('#formLogin').submit(function (event) {
                 event.preventDefault();
                 let email = $('#emailRecuperar').val();
+                $('#botaoRecuperar').prop("disabled", true);
                 $.ajax({
                     type: "POST",
                     url: "/recuperar-senha",
@@ -169,6 +170,7 @@
                     },
                     timeout: 600000,
                     success: function (data) {
+                        $('#botaoRecuperar').prop("disabled", false);
                         if(data.errosForm){
                             showErrosForm(data.erros)
                         }else if(data.errosRecover){

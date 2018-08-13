@@ -104,11 +104,11 @@
                                     <p class="text-muted">Digite a sua nova senha no formulário abaixo:</p>
                                     <div class="form-group">
                                         <label class="form-label" for="senha">Senha:</label>
-                                        <input type="email" class="form-control" id="senha" aria-describedby="emailHelp" placeholder="Enter email">
+                                        <input type="password" class="form-control" id="senha" aria-describedby="emailHelp" placeholder="Digite sua nova senha">
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label" for="repetirSenh">Repita a senha:</label>
-                                        <input type="email" class="form-control" id="repetirSenh" aria-describedby="emailHelp" placeholder="Enter email">
+                                        <input type="password" class="form-control" id="repetirSenha" aria-describedby="emailHelp" placeholder="Repita a senha">
                                     </div>
                                     <div class="form-footer">
                                         <button type="submit" class="btn btn-primary btn-block">Mudar senha</button>
@@ -165,22 +165,25 @@
             $('#formLogin').submit(function (event) {
                 event.preventDefault();
                 let email = $('#emailRecuperar').val();
+                let senha = $('#senha').val();
+                let repetirSenha = $('#repetirSenha').val();
                 let token = `<%=token%>`;
                 $.ajax({
                     type: "POST",
                     url: "/realizar-recuperacao",
                     data: {
-                        token
+                        token,
+                        senha,
+                        repetirSenha
                     },
                     timeout: 600000,
                     success: function (data) {
                         if (data.errosForm) {
                             showErrosForm(data.erros)
-                        } else if (data.errosRecover) {
-                            showErrosLogin(data.msg)
                         } else {
                             $('#emailRecuperar').val('');
-                            showSucesso('Um e-mail de recuperação foi enviado para ' + email);
+                            alert('Sua senha foi alterada com sucesso!');
+                            window.location = "/login";
                         }
                     },
                     error: function (e) {

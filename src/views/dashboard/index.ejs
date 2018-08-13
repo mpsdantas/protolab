@@ -36,7 +36,11 @@
     <script src="/static/assets/plugins/maps-google/plugin.js"></script>
     <!-- Input Mask Plugin -->
     <script src="/static/assets/plugins/input-mask/plugin.js"></script>
-
+    <style>
+        .ponteiro{
+            cursor: pointer;
+        }
+    </style>
 </head>
 
 <body class="">
@@ -188,32 +192,33 @@
                                                     <%} else if (status === "Cancelado") {%>
                                                         <%cor = "bg-danger"%>
                                                     <%}%>
-                                                    <tr  style="text-align: center" onclick="window.location='/dashboard/ver-processo/<%=processosAberto[i]._id%>';">
-                                                        <td>
+                                                    <tr style="text-align: center" onclick="window.location='/dashboard/ver-processo/<%=processosAberto[i]._id%>';">
+                                                        <td class="ponteiro">
                                                             <span class="text-muted"><%=processosAberto[i].codigo%></span>
                                                         </td>
-                                                        <td>
+                                                        <td class="ponteiro">
                                                             <a class="text-inherit"><%=processosAberto[i].solicitante%></a>
                                                         </td>
-                                                        <td>
+                                                        <td class="ponteiro">
                                                             <%=processosAberto[i].vinculo%>
                                                         </td>
-                                                        <td>
+                                                        <td class="ponteiro">
                                                             <%if(processosAberto[i].tipoServico==="impressao3d"){%>
                                                                 100% <strong>(Automático)</strong>
                                                             <%}else{%>
                                                                 <%=processosAberto[i].configPcb%>
                                                             <%}%>
-                                                        </td>
-                                                        <td>
+                                                        </td >
+                                                        <td class="ponteiro">
                                                             <%=processosAberto[i].quantidade%>
                                                         </td>
-                                                        <td>
+                                                        <td class="ponteiro">
                                                             <span class="status-icon <%=cor%>"></span>
                                                             <%=processosAberto[i].processamento[processosAberto[i].processamento.length-1].status%>
                                                         </td>
-                                                        <td>
-                                                            <%=processosAberto[i].dataAbertura.toLocaleDateString()%>
+                                                        <td class="ponteiro">
+                                                            <%let dataAbertura = processosAberto[i].dataAbertura.toLocaleDateString('pt-BR')%>
+                                                            <%=dataAbertura.split('-').reverse().join('-');%>
                                                         </td>
                                                         <td class="text-right">
                                                             <%let nomeArquivo = processosAberto[i].urlArquivo%>

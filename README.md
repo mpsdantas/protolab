@@ -1,4 +1,4 @@
-## PROTOLAB - IMD UFRN
+## PROTOLAB
 
 ### SOBRE
 

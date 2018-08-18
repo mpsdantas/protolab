@@ -180,10 +180,13 @@
                     success: function (data) {
                         if (data.errosForm) {
                             showErrosForm(data.erros)
-                        } else {
+                        } else if(data.status){
                             $('#emailRecuperar').val('');
                             alert('Sua senha foi alterada com sucesso!');
                             window.location = "/login";
+                        } else{
+                            alert('Token inválido.');
+                            window.location = '/';
                         }
                     },
                     error: function (e) {

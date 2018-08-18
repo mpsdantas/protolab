@@ -12,18 +12,18 @@ exports.criarNovoUsuario = async (application, req, res) => {
     req.body.senha = crypto.createHash("md5").update(req.body.senha).digest("hex");
     req.body.ativado = true;
     delete req.body.repetirSenha;
-    
-    if(errosFile.semFoto){
+
+    if (errosFile.semFoto) {
         req.body.urlFotoPerfil = `./src/uploads/usuarios/img-perfil/default.png`;
-        await Usuario.update({email:req.body.email},{$set:{nome:req.body.nome, tipoUsuario: req.body.tipoUsuario, senha: req.body.senha, urlFotoPerfil: req.body.urlFotoPerfil, ativado: true}});
+        await Usuario.update({ email: req.body.email }, { $set: { nome: req.body.nome, tipoUsuario: req.body.tipoUsuario, senha: req.body.senha, urlFotoPerfil: req.body.urlFotoPerfil, ativado: true } });
         req.session.status = true;
         req.session.email = req.body.email;
-        req.session.nome  = req.body.nome;
-        req.session.tipoUsuario = req.body.tipoUsuario; 
-        return res.status(200).json({status:true, msg: "Usuario criado."});
+        req.session.nome = req.body.nome;
+        req.session.tipoUsuario = req.body.tipoUsuario;
+        return res.status(200).json({ status: true, msg: "Usuario criado." });
     }
 
-    const usuario = await Usuario.findOne({email:req.body.email});
+    const usuario = await Usuario.findOne({ email: req.body.email });
     req.body.urlFotoPerfil = `./src/uploads/usuarios/img-perfil/${usuario._id}/${usuario._id}${methods.getExt(req.files.arquivo)}`;
     /* Movendo arquivo enviado para a pasta dos processos. */
     methods.createDir(`./src/uploads/usuarios/img-perfil/${usuario.id}`, (statusDir, erroDir) => {
@@ -31,13 +31,13 @@ exports.criarNovoUsuario = async (application, req, res) => {
         methods.salveFile(req.files.arquivo, req.body.urlFotoPerfil, (statusFile, erroFile) => {
             if (erroFile) return res.status(500).json({ msg: "Problema ao criar arquivo, tente novamente." });
             /* Salvando dados no banco */
-            Usuario.update({email:req.body.email},{$set:{nome:req.body.nome, tipoUsuario: req.body.tipoUsuario, senha: req.body.senha, urlFotoPerfil: req.body.urlFotoPerfil, ativado: true}},(err, data)=>{
+            Usuario.update({ email: req.body.email }, { $set: { nome: req.body.nome, tipoUsuario: req.body.tipoUsuario, senha: req.body.senha, urlFotoPerfil: req.body.urlFotoPerfil, ativado: true } }, (err, data) => {
                 if (err) return res.status(200).json({ status: false, msg: erro });
                 req.session.status = true;
                 req.session.email = req.body.email;
-                req.session.nome  = req.body.nome;
+                req.session.nome = req.body.nome;
                 req.session.tipoUsuario = req.body.tipoUsuario;
-                return res.status(200).json({status:true, msg: "Usuario criado."});
+                return res.status(200).json({ status: true, msg: "Usuario criado." });
             });
         });
     });

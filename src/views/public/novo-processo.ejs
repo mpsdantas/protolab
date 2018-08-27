@@ -459,13 +459,13 @@
                 $('#configPcbDiv').hide();
                 $('#arquivoDiv').show();
                 $('#labelAviso').empty();
-                $('#labelAviso').append(`Só serão aceitos arquivos com a extensão ".stl".`);
+                $('#labelAviso').append(`Só serão aceitos arquivos com a extensão: <%=string3D%>`);
             } else if (valor === "impressaoPCB") {
                 $('#quantidadeDiv').show();
                 $('#configPcbDiv').show();
                 $('#arquivoDiv').show();
                 $('#labelAviso').empty();
-                $('#labelAviso').append(`Você só poderá mandar arquivos ".brd".`);
+                $('#labelAviso').append(`Você só poderá mandar arquivos: <%=stringPCB%>`);
             } else {
                 $('#quantidadeDiv').hide();
                 $('#configPcbDiv').hide();

@@ -26,4 +26,6 @@ module.exports = (application) => {
     application.post('/dashboard/realizar-atualizacao-status-orcamento/', methods.protectRoute, (req, res) => {
         controllerDashboard.realizarAtualizacaoStatusOrcamento(application, req, res);
     });
+
+    application.get('/dashboard/baixar-orcamento/:id', methods.protectRoute, (req, res) => { controllerDashboard.enviarOrcamento(application, req, res) });
 };

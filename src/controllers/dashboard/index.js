@@ -6,6 +6,7 @@ const controladorUsuario = require('./controladorUsuario');
 const controladorMensagem = require('./controladorMensagens');
 const controladorOrcamentos = require('./controladorOrcamentos');
 const controladorConfiguracoes = require('./controladorConfiguracoes');
+const controladorRelatorio = require('./controladorRelatorios');
 module.exports = {
     ...controladorPaginaInicial,
     ...controlardorSair,
@@ -14,5 +15,6 @@ module.exports = {
     ...controladorUsuario,
     ...controladorMensagem,
     ...controladorOrcamentos,
-    ...controladorConfiguracoes
+    ...controladorConfiguracoes,
+    ...controladorRelatorio
 };

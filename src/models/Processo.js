@@ -1,4 +1,5 @@
 const mongoose  = require('mongoose');
+const mongoose_csv = require('mongoose-csv');
 const Schema = mongoose.Schema;
 
 const Processo = new Schema({
@@ -33,5 +34,5 @@ const Processo = new Schema({
     dataFechamento: Date
 
 });
-
+Processo.plugin(mongoose_csv);
 mongoose.model('Processo', Processo);

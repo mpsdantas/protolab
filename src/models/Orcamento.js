@@ -1,4 +1,5 @@
 const mongoose  = require('mongoose');
+const mongoose_csv = require('mongoose-csv');
 const Schema = mongoose.Schema;
 
 const Orcamento = new Schema({
@@ -29,5 +30,5 @@ const Orcamento = new Schema({
     dataAbertura: Date,
     dataFechamento: Date
 });
-
+Orcamento.plugin(mongoose_csv);
 mongoose.model('Orcamento', Orcamento);

@@ -33,6 +33,7 @@
     "match-sorter": "^2.2.3",
     "mkdirp": "0.5.1",
     "mongoose": "5.0.16",
+    "mongoose-csv": "1.1.0",
     "nodemailer": "4.6.7",
     "pm2": "^3.0.0"
   },

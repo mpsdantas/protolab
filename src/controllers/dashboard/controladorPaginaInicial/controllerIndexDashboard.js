@@ -9,6 +9,8 @@ exports.renderIndex = async (application, req, res) =>{
     // Buscas banco de dados:
     const totalProcessos = await Processo.count({});
     let processosAberto = await Processo.find({finalizado:false});
+    console.log("Processos abertos:");
+    console.log(processosAberto);
     const totalOrcamento = await Orcamento.count({});
     const orcamentosAberto = await Orcamento.find({finalizado:false, pausado:false});
     
